@@ -53,6 +53,7 @@ class Http{
 		if(404 == $url){
 			header('HTTP/1.1 404 Not Found');
     		echo '404 Not Found';
+			exit;
 		}else{
 			header('Location: '.$url);
 		}

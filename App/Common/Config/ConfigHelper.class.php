@@ -2,7 +2,7 @@
 namespace Common\Config;
 class ConfigHelper{
 	static function getConfigs($confName){
-		return (require "ConfigHelper.class.php");
+		return (require "{$confName}.conf.php");
 	}
 }
 

@@ -10,7 +10,6 @@ class Autoload{
 	static function autoload($className){
 		$fileName = str_replace('\\','/',GAPP_BASEDIR.'/'.$className.'.class.php');
 		if(file_exists($fileName)){
-			var_dump($fileName);
 			require_once $fileName;
 		}else{
 			die("File({$fileName}) does not exists!");

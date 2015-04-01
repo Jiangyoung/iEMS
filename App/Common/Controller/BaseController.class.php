@@ -30,13 +30,7 @@ class BaseController{
 		}
 	}
 	function render($template){
-		$template = GAPP_TPLDIR.'/'.$template;
-		if(!file_exists($template)){
-			\Common\Http\Http::redirect(404);
-			exit;
-		}
 		$pageHtml = $this->view->fetch($this->renderValues,$template);
 		echo $pageHtml;
-
 	}
 }
