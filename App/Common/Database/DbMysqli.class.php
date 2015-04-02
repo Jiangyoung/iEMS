@@ -13,7 +13,7 @@ class DbMysqli{
 	final function __construct(){
 		$dbConfig = \Common\Config\ConfigHelper::getConfigs('db');
 		$this->tbPrefix = $dbConfig['tbprefix'];
-		$this->conn = new \mysqli($dbConfig['host'],$dbConfig['user'],$dbConfig['passwd'],$dbConfig['dbname']);
+		$this->conn = @new \mysqli($dbConfig['host'],$dbConfig['user'],$dbConfig['passwd'],$dbConfig['dbname']);
 		if(mysqli_connect_errno()){
 			printf ( "Connect failed: %s\n" , mysqli_connect_error());
 			exit();
