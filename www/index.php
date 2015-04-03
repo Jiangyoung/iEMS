@@ -12,4 +12,4 @@ require GAPP_BASEDIR . '/' . 'Common/Autoload/Autoload.class.php';
 
 \Common\Autoload\Autoload::start();
 
-\Common\App::run();
+\Common\App::run('index_allow_ca');

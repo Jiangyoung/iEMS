@@ -1,6 +1,10 @@
 <?php
 namespace Common\Model;
 class Equipment extends \Common\Database\DbMysqli{
-    private $fields = array('id','name','status','description');
+
     protected $tbName = 'equipment';
+    protected $tbFields = array('id','name','status','desc');
+
+    protected function init(){
+    }
 }

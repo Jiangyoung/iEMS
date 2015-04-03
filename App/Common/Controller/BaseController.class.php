@@ -3,18 +3,16 @@ namespace Common\Controller;
 class BaseController{
 	protected $renderValues = array();
 	private $view = null;
-	final function __construct(){
-
+	final function __construct($controllerName,$actionName){
 		//用php模板
 		$this->view = new \Common\Tpl\PhpEngine();
 
-		/*
-		//设置smarty模板
-		$this->view = \Common\Tpl\SmartyEngine::getEngine();
-		*/
+		$this->setRenderValues('controller',$controllerName);
+		$this->setRenderValues('action',$actionName);
 	}
+
 	function init(){
-		$this->setRenderValues('title','');
+
 	}
 
 	function setRenderValues($key,$val=null){

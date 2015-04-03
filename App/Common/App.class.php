@@ -1,12 +1,12 @@
 <?php
 namespace Common;
 class App{
-	static function run(){
+	static function run($ConActConfigName){
 
 		$controller = ucfirst(\Common\Http\Http::getGET('c','index'));
 		$action  = \Common\Http\Http::getGET('a','index');
 
-		$allowCA = \Common\Config\ConfigHelper::getConfigs('allowca');
+		$allowCA = \Common\Config\ConfigHelper::getConfigs($ConActConfigName);
 
 		if(!array_key_exists($controller, $allowCA)){
 			\Common\Http\Http::redirect(404);
@@ -17,11 +17,11 @@ class App{
 
 		
 		$className = '\\'.GAPP_APPNAME.'\\Controller\\'.$controller.'Con';
-		$action .= 'Action';
+		$actionName = $action.'Action';
 
-		$class = new $className();
+		$class = new $className($controller,$action);
 		$class->init();
-		$class->$action();
+		$class->$actionName();
 	}
 	/*
 	private function parseUrl(){

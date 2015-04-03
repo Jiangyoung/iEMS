@@ -8,9 +8,11 @@ class DbMysqli{
 	/**
 	 * 表前缀
 	 */
-	private $tbPrefix = '';
+	protected $tbPrefix = '';
 
 	protected $tbName = '';
+
+	protected $tbFileds = array();
 
 	final function __construct(){
 		$dbConfig = \Common\Config\ConfigHelper::getConfigs('db');
@@ -28,7 +30,7 @@ class DbMysqli{
 
 	}
 
-	private function init(){
+	protected function init(){
 
 	}
 
@@ -50,17 +52,14 @@ class DbMysqli{
 			$sql .= ' ORDER BY '.$sql_order;
 		}
 		if(is_array($limit)){
-			if(@intval($limit[0]) && @intval($limit[1])){
+			if(is_numeric($limit[0]) && is_numeric($limit[1]) && intval($limit[0]) && intval($limit[1])){
 				$sql .= " LIMIT {$limit[0]},{$limit[1]} ";
 			}
-		}else if(@intval($limit)){
+		}else if(is_numeric($limit) && intval($limit)){
 			$sql .= " LIMIT {$limit} ";
 		}
 		$queryRes = $this->conn->query($sql);
-		$res = array();
-		while($row = $queryRes->fetch_assoc()){
-			$res[] = $row;
-		}
+		$res = $queryRes->fetch_all(MYSQLI_ASSOC);
 		$queryRes->close();
 		return $res;
 	}
@@ -82,13 +81,23 @@ class DbMysqli{
 	{
 		$sql = 'SELECT ';
 		if(is_array($fields)){
+			$flag = 1;
 			foreach ($fields as $value) {
+				if(1 != $flag++){
+					$sql .= ',';
+				}
 				$sql .= ' `'.$value.'` ';
 			}
 		}else if($fields != '*'){
 			$sql .= ' `'.$fields.'` ';
 		}else{
-			$sql .= ' * ';
+			$flag = 1;
+			foreach ($this->tbFields as $value) {
+				if(1 != $flag++){
+					$sql .= ',';
+				}
+				$sql .= ' `'.$value.'` ';
+			}
 		}
 		$sql .= 'FROM `'.$this->tbPrefix.$this->tbName.'` WHERE `id`='.$id;
 		$res = $this->execute_dql($sql);
@@ -99,7 +108,7 @@ class DbMysqli{
 	 * @param Array $params 要插入的值 'field'=>'value'
 	 * @return Integer id 返回成功插入后的insert_id
 	 */
-	function insert($params){
+	function insertOne($params){
 		if(!is_array($params)){
 			die("wrong argument!");
 		}
