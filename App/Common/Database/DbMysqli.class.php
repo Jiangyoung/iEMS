@@ -10,6 +10,8 @@ class DbMysqli{
 	 */
 	private $tbPrefix = '';
 
+	protected $tbName = '';
+
 	final function __construct(){
 		$dbConfig = \Common\Config\ConfigHelper::getConfigs('db');
 		$this->tbPrefix = $dbConfig['tbprefix'];
@@ -22,8 +24,14 @@ class DbMysqli{
 		     printf ( "Error loading character set utf8: %s\n" ,  $this->conn -> error );
 		     exit();
 		}
+		$this->init();
 
 	}
+
+	private function init(){
+
+	}
+
 	/**
 	 * 基础查询操作
 	 * @param $sql String SQL查询语句
@@ -66,12 +74,11 @@ class DbMysqli{
 	}
 	/**
 	 * 通过id出去一条数据
-	 * @param $tbName String 表名（无前缀）
 	 * @param @id int 
 	 * @param @fields Array/String 要取出的列名
 	 * @return Array 返回结果数组
 	 */
-	function getRowById($tbName,$id,$fields='*')
+	function getRowById($id,$fields='*')
 	{
 		$sql = 'SELECT ';
 		if(is_array($fields)){
@@ -83,33 +90,30 @@ class DbMysqli{
 		}else{
 			$sql .= ' * ';
 		}
-		$sql .= 'FROM `'.$this->tbPrefix.$tbName.'` WHERE `id`='.$id;
+		$sql .= 'FROM `'.$this->tbPrefix.$this->tbName.'` WHERE `id`='.$id;
 		$res = $this->execute_dql($sql);
 		return $res[0];
 	}
 	/**
 	 * 插入操作
-	 * @param String $tbName 表名(无前缀)
 	 * @param Array $params 要插入的值 'field'=>'value'
 	 * @return Integer id 返回成功插入后的insert_id
 	 */
-	function insert($tbName,$params){
+	function insert($params){
 		if(!is_array($params)){
 			die("wrong argument!");
 		}
-		$sql = "INSERT INTO `%s`(%s) VALUES(%s)";
-		$sql_fields = '';
+		$sql = "INSERT INTO `%s` SET %s";
 		$sql_values = '';
+		$sql_values_format = " `%s`='%s' ";
 		$flag = 1;
 		foreach ($params as $key => $value) {
 			if(1 != $flag++){
-				$sql_fields .= ',';
 				$sql_values .= ',';
 			}
-			$sql_fields .= "`{$key}`";
-			$sql_values .= "'{$value}'";
+			$sql_values .= sprintf($sql_values_format,$key,$this->conn->real_escape_string($value));
 		}
-		$sql = sprintf($sql,$this->tbPrefix.$tbName,$sql_fields,$sql_values);
+		$sql = sprintf($sql,$this->tbPrefix.$this->tbName,$sql_values);
 		$this->execute_dml($sql);
 		return $this->conn->insert_id;
 	}
