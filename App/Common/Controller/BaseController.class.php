@@ -27,7 +27,8 @@ class BaseController{
 			$this->renderValues[$key] = $val;
 		}
 	}
-	function render($template){
+	function render($template,$isCommon = false){
+		if(!$isCommon)$template = strtolower(GAPP_APPNAME).'/'.$template;
 		$pageHtml = $this->view->fetch($this->renderValues,$template);
 		echo $pageHtml;
 	}

@@ -1,7 +1,7 @@
 <?php
 return array(
-'Index'		=>			array(
-	'index'
-	)
+	'Index'		=>		array('index'),
+	'User'		=>		array('login','passport')
+
 );
 ?>

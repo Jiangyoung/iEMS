@@ -30,4 +30,16 @@ class PhpEngine{
 			include $filePath;
 		}
 	}
+
+	/**
+	 * @param $file 文件名
+	 * @return string 返回对应文件名的URL
+	 */
+	function getFileUrl($file){
+		$baseUrl = substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'/'));
+		if('/' != substr($baseUrl,-1)){
+			$baseUrl .= '/';
+		}
+		return $baseUrl.$file;
+	}
 }
