@@ -1,0 +1,58 @@
+@charset "utf-8";
+div {
+    display: block;
+}
+body {
+    font-size: 12px;
+    line-height: 1.5;
+}
+.fl {float:left;}
+.fr {float:right;}
+.cb {clear:both;}
+.tl {text-align:left;}
+.tc {text-align:center;}
+.tr {text-align:right;}
+
+
+/*头部*/
+#header { background:#3A6DA4; height:49px; overflow:hidden;}
+#header .logo{float:left;margin-right:20px; padding:8px 0 0 0;}
+#header .logo a{display:block;text-decoration: none;height:40px; width:250px; background:url(bgimg/logo.jpg) no-repeat;}
+#header .nav{ display:inline-block; height:34px; position:relative; margin-top:15px;}
+#header .col-auto{ overflow:visible}
+#header .nav li,
+#header .nav li a{background: url(bgimg/nav_bg.png) no-repeat;display:block;_float:left;height:34px; line-height:38px; font-size:14px; font-weight:700; text-decoration:none;}
+#header .nav li{float:left;padding:0 0 0 8px}
+#header .nav li a{background-position: right top; padding:0 15px 0 7px}
+#header .nav li.on{background-position: left -43px;}
+#header .nav li.on a{background-position: right -43px; color:#367abb;}
+#header .admin_info{padding:18px 14px 0 0; color:#FFF;}
+#header .admin_info a{ text-decoration:none; color:#FFF;}
+
+
+.left_menu{margin-right:8px; padding:8px;_padding:8px 0 8px 8px;width:118px; position:relative; display:block;}
+.left_menu_on{ width:0; padding:0;}
+.left_menu_on div{ visibility:hidden;_display:none}
+.left_menu h3{font-weight: 700;color: #275d96;border-bottom:1px solid #d9e4ea; line-height:24px; height:24px; margin-bottom:4px;_width:112px;_margin-right:12px}
+.left_menu ul li a{line-height:24px;padding-left:8px;display:block;text-decoration: none;background-color:#f7fbfc;_width:100px;outline:none;}
+.left_menu ul li a:hover,
+.left_menu ul li.on,.left_menu h3 span{background: url(bgimg/left_menu.png) no-repeat;text-decoration: none}
+.left_menu ul li.on{width:104px; height:29px; padding-left:20px; margin:0}
+.left_menu ul li.on a{ height:29px; line-height:29px; background:none; padding:0; display:block}
+.left_menu ul li.on a:hover{background:none}
+.left_menu ul li a:hover{background-position: left -38px}
+.left_menu a.open,.left_menu a.close{background: url(bgimg/left_menu_openClose.png) no-repeat 1px center;width:8px; display:block; position:absolute; z-index:100; height:auto; right:-9px; top:0}
+.left_menu a.close{background-position:right center}
+.left_menu h3 span{background-position: left -78px; display:block; float:right; height:14px; width:14px; margin-top:5px}
+.left_menu h3 span.on{background-position: -33px -78px;}
+
+
+.right_main {
+    padding-top: 30px;
+    margin-top: 20px;
+    background:#fff;
+    border:1px solid #c2d1d8;
+    position:relative;
+    overflow: hidden;
+    height: 510px;
+}

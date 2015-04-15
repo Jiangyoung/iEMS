@@ -50,15 +50,20 @@ class Http{
 
 
 	static function redirect($url){
-		if(404 == $url){
-			header('HTTP/1.1 404 Not Found');
-    		echo '404 Not Found';
-			exit;
-		}else{
-			header('Location: '.$url);
+		switch($url){
+			case GAPP_FORBIDDEN_CONTROLLER:
+			case GAPP_FORBIDDEN_ACTION:
+			case GAPP_TOKEN_VERIFY_FAILED:
+
+				header('HTTP/1.1 404 Not Found');
+				echo '404 Not Found';
+				exit;
+
+				break;
+			default:
+				header('Location: '.$url);
+				break;
 		}
-			
-		
 	}
 }
 

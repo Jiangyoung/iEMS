@@ -1,10 +1,12 @@
 <?php
 return array(
 'Index'		=>			array(
-	'index'
+	'index',
+	'getVerifyCode'
 	),
 'User'		=>			array(
-	'login'
+	'login',
+	'add'
 	)
 );
 ?>

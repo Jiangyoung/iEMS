@@ -12,7 +12,7 @@ class DbMysqli{
 
 	protected $tbName = '';
 
-	protected $tbFileds = array();
+	protected $tbFields = array();
 
 	final function __construct(){
 		$dbConfig = \Common\Config\ConfigHelper::getConfigs('db');
@@ -36,11 +36,12 @@ class DbMysqli{
 
 	/**
 	 * 基础查询操作
-	 * @param $sql String SQL查询语句
-	 * @param $order Array 排序方式  'field'=>'DESC/ASC'
-	 * @param $limit Array/Integer 区间 array(start,offset)  array(0,offset)直接写offset
+	 * @param String $sql  SQL查询语句
+	 * @param Array $order  排序方式  'field'=>'DESC/ASC'
+	 * @param Array/Integer $limit  区间 array(start,offset)  array(0,offset)直接写offset
+	 * @return array
 	 */
-	function execute_dql($sql,$order=null,$limit=null)
+	protected function execute_dql($sql,$order=null,$limit=null)
 	{
 		if(is_array($order)){
 			$sql_order = '';
@@ -66,16 +67,17 @@ class DbMysqli{
 	/**
 	 * 基础更新操作
 	 */
-	function execute_dml($sql)
+	protected function execute_dml($sql)
 	{
 		$res = $this->conn->query($sql);
 		return $res;
 	}
+
 	/**
-	 * 通过id出去一条数据
-	 * @param @id int 
-	 * @param @fields Array/String 要取出的列名
-	 * @return Array 返回结果数组
+	 * 通过id取得一行
+	 * @param int $id
+	 * @param string $fields
+	 * @return array
 	 */
 	function getRowById($id,$fields='*')
 	{
@@ -91,13 +93,8 @@ class DbMysqli{
 		}else if($fields != '*'){
 			$sql .= ' `'.$fields.'` ';
 		}else{
-			$flag = 1;
-			foreach ($this->tbFields as $value) {
-				if(1 != $flag++){
-					$sql .= ',';
-				}
-				$sql .= ' `'.$value.'` ';
-			}
+			$selectFields = $this->assembleAllFields();
+			$sql .= $selectFields;
 		}
 		$sql .= 'FROM `'.$this->tbPrefix.$this->tbName.'` WHERE `id`='.$id;
 		$res = $this->execute_dql($sql);
@@ -105,10 +102,11 @@ class DbMysqli{
 	}
 	/**
 	 * 插入操作
-	 * @param Array $params 要插入的值 'field'=>'value'
-	 * @return Integer id 返回成功插入后的insert_id
+	 * @param array $params 要插入的值 'field'=>'value'
+	 * @return int id 返回成功插入后的insert_id
 	 */
 	function insertOne($params){
+		$params = $this->fileterParams($params);
 		if(!is_array($params)){
 			die("wrong argument!");
 		}
@@ -125,6 +123,33 @@ class DbMysqli{
 		$sql = sprintf($sql,$this->tbPrefix.$this->tbName,$sql_values);
 		$this->execute_dml($sql);
 		return $this->conn->insert_id;
+	}
+
+	/**
+	 * 过滤参数，只保留表里存在的字段
+	 * @param $params
+	 * @return array
+	 */
+	function filterParams($params){
+		$resultParams = array();
+		foreach($this->tbFields as $filed){
+			if(isset($params[$filed])){
+				$resultParams[$filed] = $params[$filed];
+			}
+		}
+		return $resultParams;
+	}
+
+	protected function assembleAllFields(){
+		$res = '';
+		$flag = 1;
+		foreach($this->tbFields as $f){
+			if(1 != $flag++){
+				$res .= ',';
+			}
+			$res .= " `{$f}` ";
+		}
+		return $res;
 	}
 
 	function __destruct(){

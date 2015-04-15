@@ -10,6 +10,8 @@ define('GAPP_TPLDIR', GAPP_BASEDIR.'/../templates');
 
 require GAPP_BASEDIR . '/' . 'Common/Autoload/Autoload.class.php';
 
+session_start();
+
 \Common\Autoload\Autoload::start();
 
 \Common\App::run('admin_allow_ca');

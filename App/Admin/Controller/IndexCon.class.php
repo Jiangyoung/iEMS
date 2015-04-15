@@ -8,11 +8,12 @@
 
 namespace Admin\Controller;
 
+use \Common\Controller\BaseController;
 
-class IndexCon extends \Common\Controller\BaseController{
+class IndexCon extends BaseController{
     function indexAction(){
         $this->setRenderValues('title','管理中心');
-        $this->render('admin.php');
+        $this->render('index.php');
     }
 
 }

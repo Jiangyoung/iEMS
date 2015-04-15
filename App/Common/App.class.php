@@ -1,18 +1,25 @@
 <?php
 namespace Common;
+
+use \Common\Http\Http;
+use \Common\Config\ConfigHelper;
+
 class App{
 	static function run($ConActConfigName){
 
-		$controller = ucfirst(\Common\Http\Http::getGET('c','index'));
-		$action  = \Common\Http\Http::getGET('a','index');
+		//加载常量配置文件
+		ConfigHelper::loadConfigs('constant');
 
-		$allowCA = \Common\Config\ConfigHelper::getConfigs($ConActConfigName);
+		$controller = ucfirst(Http::getGET('c','index'));
+		$action  = Http::getGET('a','index');
+
+		$allowCA = ConfigHelper::getConfigs($ConActConfigName);
 
 		if(!array_key_exists($controller, $allowCA)){
-			\Common\Http\Http::redirect(404);
+			Http::redirect(GAPP_FORBIDDEN_CONTROLLER);
 		}
 		if(!in_array($action, $allowCA[$controller])){
-			\Common\Http\Http::redirect(404);
+			Http::redirect(GAPP_FORBIDDEN_ACTION);
 		}
 
 		

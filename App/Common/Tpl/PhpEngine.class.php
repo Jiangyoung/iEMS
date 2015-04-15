@@ -5,7 +5,12 @@ class PhpEngine{
 	function __construct(){
 
 	}
-	
+
+	/**
+	 * @param $params 参数
+	 * @param $fileName 文件 (路径为 templates/$fileName)
+	 * @return string 返回渲染完成后的html代码
+	 */
 	function fetch($params,$fileName){
 		$filePath = self::$templateDirPath.'/'.$fileName;
 		if(!file_exists($filePath)){

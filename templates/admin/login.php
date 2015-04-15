@@ -14,7 +14,7 @@
 <body>
 <div class="login">
     <h1>
-        <img src="/weixinshop/static/images/admin/weixin.png" width="32" style="float:left; margin-right:10px;"/>智风微信商城管理系统</h1>
+        <img src="/weixinshop/static/images/admin/weixin.png" width="32" style="float:left; margin-right:10px;"/>设备管理系统</h1>
     <form action="/weixinshop/index.php?g=admin&m=index&a=login" method="post" id="myform">
         <div>
             <img src="/weixinshop/static/images/admin/login-top.jpg" />
@@ -34,9 +34,7 @@
 </script>
 <script>
     $(function(){
-        if(self != top){
-            top.location = self.location;
-        }
+
 
         $(".verify_img").click(function(){
             var timenow = new Date().getTime();
