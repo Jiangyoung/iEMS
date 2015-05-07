@@ -1,4 +1,5 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-<title><?php echo isset($this->title)?$this->title:'EquipmentMangerSystem'; ?></title>
-<meta http-equiv="keyword" content="<?php echo isset($this->keyword)?$this->keyword:'EquipmentMangerSystem'; ?>" />
-<meta http-equiv="description" content="<?php echo isset($this->description)?$this->description:'this is a simple equipment manger system.'; ?>" />
+<!-- Bootstrap core CSS -->
+<link href="<?php echo $this->getFileUrl('static/bootstrap-3.3.4-dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="<?php echo $this->getFileUrl('static/css/dashboard.css'); ?>" rel="stylesheet">

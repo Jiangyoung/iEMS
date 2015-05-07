@@ -1,7 +1,7 @@
 <?php
 namespace Common\Controller;
 
-use Common\Http\Http;
+use Common\Util\Http;
 use \Common\Tpl\PhpEngine;
 
 class BaseController{

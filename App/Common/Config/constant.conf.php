@@ -18,3 +18,7 @@ define('GAPP_TOKEN_VERIFY_SUCCESS',100);
  * token验证失败
  */
 define('GAPP_TOKEN_VERIFY_FAILED',101);
+/**
+ * 错误的验证码
+ */
+define('GAPP_WRONG_VERIFYCODE',102);

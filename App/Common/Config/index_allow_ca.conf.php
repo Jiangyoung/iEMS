@@ -2,11 +2,10 @@
 return array(
 'Index'		=>			array(
 	'index',
-	'getVerifyCode'
+	'getVerify'
 	),
 'User'		=>			array(
 	'login',
 	'add'
 	)
 );
-?>

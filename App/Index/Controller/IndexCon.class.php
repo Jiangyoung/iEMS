@@ -3,8 +3,6 @@ namespace Index\Controller;
 
 use \Common\Controller\BaseController;
 use \Common\Model\Equipment;
-use \Common\Http\Http;
-use Common\Model\User;
 use \Common\Util\String;
 use \Common\Util\Image;
 
@@ -18,6 +16,7 @@ class IndexCon extends BaseController{
 	}
 
 	function indexAction(){
+		header('Content-type:text/html;charset=utf-8');
 
 		$equipmentObj = new Equipment();
 		//$insert_id = $equipmentObj->insertOne(array('name'=>'电脑呀','status'=>0,'desc'=>'秒数蜀山'));

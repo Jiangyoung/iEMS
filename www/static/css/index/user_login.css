@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+body{margin:0px; margin:0px; font-size:14px; color:#666; font-family:"",Microsoft YaHei,"Arial Black", Gadget, sans-serif; font-family:Arial, Helvetica, sans-serif;  text-align:justify; word-break:break-all; line-height:1.8em; text-align:center; background:url(images/index_02.jpg) repeat-x; background-color:#ffffff;}
+
+input,form, ul, li,dt,dd,dl, h1, h2, h3, h4, h5, h6{padding:0; margin:0px;border:0px;}
+ul{list-style:none;}
+h1 {font-family:Microsoft YaHei,Arial, Helvetica, sans-serif;;  font-size:20px; color:#666; font-weight:normal; padding-left:5px;}
+h2{font-family:Microsoft YaHei; font-size:30px; color:#fff; font-weight:normal;}
+p,dt,dd,dl{ margin:0px; padding:0px;}
+img{border:none; padding:0px; margin:0px;}
+
+
+
+.fz12{font-size:12px;} .fc999{color:#999;} .fz16{font-size:16px;} .fc222{ color:#2a2f31;} .fb{font-weight:bold;} .fc666{color:#666;}
+.fl{float:left;} .fr{float:right;} .mr10{margin-right:10px;} .mb10{margin-bottom:10px;}
+
+
+
+
+
+
+/*------------------登陆页面部分开始-------------------*/
+.login{width:393px; height:auto; margin-left:auto; margin-right:auto; text-align:left; padding-top:150px;}
+.login-top{height:30px;}
+.login-center{width:393px; background:url(images/login_bg.jpg) repeat-y; padding-left:20px;}
+.login-center ul li{clear:both; padding-bottom:10px;}
+.remember-me{margin:0; padding:0; float:left;}
+.remember-me2{line-height:1.2em;}
+.input-text1{height:30px; line-height:37px; width:337px; border:1px solid #cccccc; border-radius:5px; -moz-box-shadow:2px 2px 2px #ededed inset; /* For Firefox3.6+ */-webkit-box-shadow:2px 2px 3px #ededed inset;/* For Chrome5+, Safari5+ */box-shadow:2px 2px 3px #ededed inset; /* For Latest Opera */ color:#333; font-size:14px;}
+.input-text1:hover{border:1px solid #c2dde5;}
+.login-button{ background:url(images/login-button.jpg) no-repeat; width:393px; height:58px; clear:both;cursor:pointer;}
+.login-button:hover{background:url(images/login-button2.jpg) no-repeat;}
+/*------------------登陆页面部分结束-------------------*/
+
+

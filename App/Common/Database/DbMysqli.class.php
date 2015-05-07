@@ -1,21 +1,21 @@
 <?php
 namespace Common\Database;
+
+use \Common\Config\ConfigHelper;
+
 class DbMysqli{
 	/**
 	 * 数据库连接
 	 */
 	protected $conn = null;
+
 	/**
 	 * 表前缀
 	 */
-	protected $tbPrefix = '';
-
-	protected $tbName = '';
-
-	protected $tbFields = array();
+	private $tbPrefix = '';
 
 	final function __construct(){
-		$dbConfig = \Common\Config\ConfigHelper::getConfigs('db');
+		$dbConfig = ConfigHelper::getConfigs('db');
 		$this->tbPrefix = $dbConfig['tbprefix'];
 		$this->conn = @new \mysqli($dbConfig['host'],$dbConfig['user'],$dbConfig['passwd'],$dbConfig['dbname']);
 		if(mysqli_connect_errno()){
@@ -30,6 +30,10 @@ class DbMysqli{
 
 	}
 
+	public function setTbPrefix($tbPrefix){
+		$this->tbPrefix = $tbPrefix;
+	}
+
 	protected function init(){
 
 	}
@@ -41,7 +45,7 @@ class DbMysqli{
 	 * @param Array/Integer $limit  区间 array(start,offset)  array(0,offset)直接写offset
 	 * @return array
 	 */
-	protected function execute_dql($sql,$order=null,$limit=null)
+	function execute_dql($sql,$order=null,$limit=null)
 	{
 		if(is_array($order)){
 			$sql_order = '';
@@ -64,10 +68,13 @@ class DbMysqli{
 		$queryRes->close();
 		return $res;
 	}
+
 	/**
 	 * 基础更新操作
+	 * @param $sql
+	 * @return bool|\mysqli_result
 	 */
-	protected function execute_dml($sql)
+	function execute_dml($sql)
 	{
 		$res = $this->conn->query($sql);
 		return $res;
@@ -76,37 +83,32 @@ class DbMysqli{
 	/**
 	 * 通过id取得一行
 	 * @param int $id
-	 * @param string $fields
+	 * @param string $tbName
+	 * @param array|string $fields
 	 * @return array
 	 */
-	function getRowById($id,$fields='*')
+	function getRowById($id,$tbName,$fields=array())
 	{
 		$sql = 'SELECT ';
 		if(is_array($fields)){
-			$flag = 1;
-			foreach ($fields as $value) {
-				if(1 != $flag++){
-					$sql .= ',';
-				}
-				$sql .= ' `'.$value.'` ';
-			}
-		}else if($fields != '*'){
-			$sql .= ' `'.$fields.'` ';
-		}else{
-			$selectFields = $this->assembleAllFields();
+			$selectFields = $this->assembleFields($fields);
 			$sql .= $selectFields;
+		}else if(empty($fields) || '*' == $fields){
+			$sql .= ' * ';
+		}else{
+			$sql .= ' `'.$fields.'` ';
 		}
-		$sql .= 'FROM `'.$this->tbPrefix.$this->tbName.'` WHERE `id`='.$id;
+		$sql .= 'FROM `'.$this->tbPrefix.$tbName.'` WHERE `id`='.$id;
 		$res = $this->execute_dql($sql);
 		return $res[0];
 	}
 	/**
 	 * 插入操作
+	 * @param string $tbName
 	 * @param array $params 要插入的值 'field'=>'value'
 	 * @return int id 返回成功插入后的insert_id
 	 */
-	function insertOne($params){
-		$params = $this->fileterParams($params);
+	function insertOne($tbName,$params){
 		if(!is_array($params)){
 			die("wrong argument!");
 		}
@@ -120,30 +122,34 @@ class DbMysqli{
 			}
 			$sql_values .= sprintf($sql_values_format,$key,$this->conn->real_escape_string($value));
 		}
-		$sql = sprintf($sql,$this->tbPrefix.$this->tbName,$sql_values);
+		$sql = sprintf($sql,$this->tbPrefix.$tbName,$sql_values);
 		$this->execute_dml($sql);
 		return $this->conn->insert_id;
 	}
 
-	/**
-	 * 过滤参数，只保留表里存在的字段
-	 * @param $params
-	 * @return array
-	 */
-	function filterParams($params){
-		$resultParams = array();
-		foreach($this->tbFields as $filed){
-			if(isset($params[$filed])){
-				$resultParams[$filed] = $params[$filed];
-			}
+	public function getList($tbName,$start=10,$offset=0,$fields = array()){
+		$sql = "SELECT %s FROM %s WHERE `deleted`='n' %s ";
+		$sqlFields = $this->assembleFields($fields);
+		$sqlTable = $this->tbPrefix.$tbName;
+		if(0 != intval($offset)){
+			$sqlExtra = ' LIMIT '.intval($start).','.intval($offset);
+		}else if(0 != intval($start) && 0 == intval($offset)){
+			$sqlExtra = ' LIMIT '.intval($start);
+		}else{
+			$sqlExtra = '';
 		}
-		return $resultParams;
+		$sql = sprintf($sql,$sqlFields,$sqlTable,$sqlExtra);
+		$res = $this->execute_dql($sql);
+		return $res;
 	}
 
-	protected function assembleAllFields(){
+	public function assembleFields($fields){
+		if(empty($fields)){
+			return ' * ';
+		}
 		$res = '';
 		$flag = 1;
-		foreach($this->tbFields as $f){
+		foreach($fields as $f){
 			if(1 != $flag++){
 				$res .= ',';
 			}
@@ -152,7 +158,11 @@ class DbMysqli{
 		return $res;
 	}
 
-	function __destruct(){
+	public function close(){
+		$this->conn->close();
+    }
+
+	public function __destruct(){
 		$this->conn->close();
 	}
 }

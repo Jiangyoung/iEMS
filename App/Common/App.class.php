@@ -1,7 +1,7 @@
 <?php
 namespace Common;
 
-use \Common\Http\Http;
+use \Common\Util\Http;
 use \Common\Config\ConfigHelper;
 
 class App{
@@ -23,10 +23,9 @@ class App{
 		}
 
 		
-		$className = '\\'.GAPP_APPNAME.'\\Controller\\'.$controller.'Con';
-		$actionName = $action.'Action';
-		$class = new $className($controller,$action);
-		$class->init();
-		$class->$actionName();
+		$actionPath = '\\'.GAPP_APPNAME.'\\'.$controller;
+		$actionName = $actionPath.'\\'.$action.'Action';
+		$obj = new $actionName;
+		$obj->execute();
 	}
 }

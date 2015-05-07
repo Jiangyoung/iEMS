@@ -1,32 +1,32 @@
 <?php
 namespace Common\Tpl;
 class PhpEngine{
-	private static $templateDirPath = GAPP_TPLDIR;
+	private $templatesDir = GAPP_TPLDIR;
+	private $currentTplDir = '';
 	function __construct(){
 
 	}
 
 	/**
-	 * @param $params 参数
-	 * @param $fileName 文件 (路径为 templates/$fileName)
+	 * @param string $params 参数
+	 * @param string $fileName 文件 (路径为 templates/$fileName)
 	 * @return string 返回渲染完成后的html代码
 	 */
 	function fetch($params,$fileName){
-		$filePath = self::$templateDirPath.'/'.$fileName;
+		$filePath = $this->templatesDir.'/'.$fileName;
+		$this->currentTplDir = dirname($filePath);
 		if(!file_exists($filePath)){
 			die('File "'.$filePath.'" does not exists!');
 		}
-		foreach ((array)$params as $key => $value) {
-			$this->$key = $value;
-		}
 		ob_start();
+		extract((array)$params);
 		include $filePath;
 		$ret = ob_get_contents();
 		ob_end_clean();
 		return $ret;
 	}
 	function load($fileName,$params = array()){
-		$filePath = self::$templateDirPath.'/'.$fileName;
+		$filePath = $this->currentTplDir.'/'.$fileName;
 		if(!file_exists($filePath)){
 			return ;
 			//die('File "'.$filePath.'" does not exists!');
@@ -35,6 +35,7 @@ class PhpEngine{
 			include $filePath;
 		}
 	}
+
 
 	/**
 	 * @param $file 文件名

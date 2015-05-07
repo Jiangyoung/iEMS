@@ -18,7 +18,7 @@ CREATE TABLE `iems_equipment`(
 class Equipment extends DbMysqli{
 
     protected $tbName = 'equipment';
-    protected $tbFields = array('id','name','status','desc');
+    protected $tbFields = array('id','name','type','description','remark');
 
     protected function init(){
     }
