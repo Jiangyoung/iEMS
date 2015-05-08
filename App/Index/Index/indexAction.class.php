@@ -7,18 +7,22 @@
  */
 namespace Index\Index;
 use Common\Action\BaseAction;
+use Common\Util\Pagination;
 use Index\Model\Equipment;
 
 class indexAction extends BaseAction{
 
     public function execute(){
 
-
-        $e = new Equipment();
-        $list = $e->getList(2);
-        var_dump($list);
+        header('content-type:text/html;charset=utf-8');
         $this->setRenderValues('title','index');
-        $this->setRenderValues('list',$list);
-        $res = $this->render('index/index_list.php');
+
+        $pa = new Pagination();
+
+        $nav = $pa->getNav();
+
+        echo $nav;exit;
+
+        $this->render('index/index_index.php');
     }
 }

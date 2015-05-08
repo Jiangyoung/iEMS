@@ -32,6 +32,12 @@ class Http{
     	return isset($_SESSION[$key])?htmlspecialchars($_SESSION[$key],ENT_QUOTES):$default;
     }
 
+	static function getBaseUrl(){
+		$baseUrl = substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'/'));
+		$baseUrl = rtrim($baseUrl,'/');
+		return $baseUrl;
+	}
+
 
 
 	static function redirect($url){

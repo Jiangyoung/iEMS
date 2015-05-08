@@ -15,6 +15,7 @@ abstract class BaseModel {
         if(!$this->conn){
             $this->conn = new DbMysqli($this->tbName,$this->tbFields);
         }
+        return $this->conn;
     }
 
     /**
@@ -39,11 +40,11 @@ abstract class BaseModel {
      * @return array
      */
     public function getRowById($id,$fields){
-        $this->getConnect();
+        $conn = $this->getConnect();
         if(empty($fields)){
             $fields = $this->tbFields;
         }
-        $res = $this->conn->getRowById($id,$this->tbName,$fields);
+        $res = $conn->getRowById($id,$this->tbName,$fields);
         return $res;
     }
 
@@ -52,18 +53,18 @@ abstract class BaseModel {
      * @return int
      */
     public function insertOne($params){
-        $this->getConnect();
+        $conn = $this->getConnect();
         $params = $this->filterParams($this->tbFields,$params);
-        $insert_id = $this->conn->insertOne($this->tbName,$params);
+        $insert_id = $conn->insertOne($this->tbName,$params);
         return $insert_id;
     }
 
     public function getList($start=10,$offset=0,$fields=array()){
-        $this->getConnect();
+        $conn = $this->getConnect();
         if(empty($fields)){
             $fields = $this->tbFields;
         }
-        $res = $this->conn->getList($this->tbName,$start,$offset,$fields);
+        $res = $conn->getList($this->tbName,$start,$offset,$fields);
         return $res;
     }
 

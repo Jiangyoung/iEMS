@@ -16,8 +16,6 @@
 
     <link href="<?php echo $this->getFileUrl('static/css/index/dashboard.css'); ?>" rel="stylesheet">
 
-    <link href="<?php echo $this->getFileUrl('static/css/index/index.css'); ?>">
-
 </head>
 
 <body>
@@ -52,36 +50,33 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active nav-tag">信息管理 <span class="sr-only">(current)</span></li>
-                <li><a href="javascript:void(0);" data-href="index_list">概况管理</a></li>
-                <li><a href="javascript:void(0);" data-href="">查询管理</a></li>
+                <li><a href="#">概况管理</a></li>
+                <li><a href="#">查询管理</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li class="active nav-tag">用户管理 <span class="sr-only">(current)</span></li>
-                <li><a href="javascript:void(0);" data-href="index.php?c=user&a=add">添加用户</a></li>
-                <li><a href="javascript:void(0);" data-href="">用户管理</a></li>
+                <li><a href="">添加用户</a></li>
+                <li><a href="">用户管理</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li class="active nav-tag">设备管理 <span class="sr-only">(current)</span></li>
-                <li><a href="javascript:void(0);" data-href="">添加设备</a></li>
-                <li><a href="javascript:void(0);" data-href="">设备信息管理</a></li>
-                <li><a href="javascript:void(0);" data-href="">设备管理</a></li>
+                <li><a href="">添加设备</a></li>
+                <li><a href="">设备信息管理</a></li>
+                <li><a href="">设备管理</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li class="active nav-tag">设备维护管理 <span class="sr-only">(current)</span></li>
-                <li><a href="javascript:void(0);" data-href="">添加设备维护</a></li>
-                <li><a href="javascript:void(0);" data-href="">维护信息统计</a></li>
+                <li><a href="">添加设备维护</a></li>
+                <li><a href="">维护信息统计</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li class="active ">设备借还管理 <span class="sr-only">(current)</span></li>
-                <li><a href="javascript:void(0);" data-href="">添加设备借还</a></li>
-                <li><a href="javascript:void(0);" data-href="">设备借还管理</a></li>
+                <li><a href="">添加设备借还</a></li>
+                <li><a href="">设备借还管理</a></li>
             </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="iframe_main">
-            <form>
-                <div id="queue"></div>
-                <input id="file_upload" name="file_upload" type="file" multiple="true">
-            </form>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
         </div>
     </div>
 </div>
