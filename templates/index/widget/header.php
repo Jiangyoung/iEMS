@@ -4,3 +4,4 @@
 
 <!-- uploadify css -->
 <link rel="stylesheet" type="text/css" href="<?php echo $this->getFileUrl('uploadify/uploadify.css'); ?>">
+

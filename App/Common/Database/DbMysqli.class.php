@@ -127,8 +127,8 @@ class DbMysqli{
 		return $this->conn->insert_id;
 	}
 
-	public function getList($tbName,$start=10,$offset=0,$fields = array()){
-		$sql = "SELECT %s FROM %s WHERE `deleted`='n' %s ";
+	public function getList($tbName,$fields = array(),$where='1=1',$start=10,$offset=0){
+		$sql = "SELECT %s FROM %s WHERE %s %s ";
 		$sqlFields = $this->assembleFields($fields);
 		$sqlTable = $this->tbPrefix.$tbName;
 		if(0 != intval($offset)){
@@ -138,7 +138,7 @@ class DbMysqli{
 		}else{
 			$sqlExtra = '';
 		}
-		$sql = sprintf($sql,$sqlFields,$sqlTable,$sqlExtra);
+		$sql = sprintf($sql,$sqlFields,$sqlTable,$where,$sqlExtra);
 		$res = $this->execute_dql($sql);
 		return $res;
 	}
@@ -156,6 +156,13 @@ class DbMysqli{
 			$res .= " `{$f}` ";
 		}
 		return $res;
+	}
+
+	public function assembleSelectSQL($tbName,$fields=array(),$extra=''){
+		$sql = 'SELECT %s FROM `%s` %s';
+		$fields = $this->assembleFields($fields);
+		$sql = sprintf($sql,$fields,$this->tbPrefix.$tbName,$extra);
+		return $sql;
 	}
 
 	public function close(){

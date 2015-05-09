@@ -1,6 +1,5 @@
-
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,77 +9,23 @@
     <meta name="author" content="">
     <link rel="icon" href="<?php echo $this->getFileUrl('static/images/logo.jpg'); ?>">
 
-    <title><?php echo $title; ?></title>
-
     <?php $this->load('widget/header.php'); ?>
 
-    <link href="<?php echo $this->getFileUrl('static/css/index/dashboard.css'); ?>" rel="stylesheet">
 
+    <title>管理中心</title>
 </head>
+<frameset frameborder="0" border="0" rows="60,*" >
+    <frame scrolling="no"  src="index.php?c=index&a=index&case=top"/>
 
-<body>
+        <frameset frameborder="0" border="0"  cols="255,*" >
+            <frame src="index.php?c=index&a=index&case=left">
+            <frame name="container" src="index.php?c=index&a=list" noresize>
+        </frameset>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php">设备管理系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
-        </div>
-    </div>
-</nav>
-
+    <frame scrolling="no" src="index.php?c=index&a=index&case=footer"/>
+</frameset>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active nav-tag">信息管理 <span class="sr-only">(current)</span></li>
-                <li><a href="#">概况管理</a></li>
-                <li><a href="#">查询管理</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li class="active nav-tag">用户管理 <span class="sr-only">(current)</span></li>
-                <li><a href="">添加用户</a></li>
-                <li><a href="">用户管理</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li class="active nav-tag">设备管理 <span class="sr-only">(current)</span></li>
-                <li><a href="">添加设备</a></li>
-                <li><a href="">设备信息管理</a></li>
-                <li><a href="">设备管理</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li class="active nav-tag">设备维护管理 <span class="sr-only">(current)</span></li>
-                <li><a href="">添加设备维护</a></li>
-                <li><a href="">维护信息统计</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li class="active ">设备借还管理 <span class="sr-only">(current)</span></li>
-                <li><a href="">添加设备借还</a></li>
-                <li><a href="">设备借还管理</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-        </div>
-    </div>
 </div>
-
 <?php $this->load('widget/footer.php'); ?>
 </body>
 </html>

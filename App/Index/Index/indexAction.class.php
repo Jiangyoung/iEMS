@@ -7,22 +7,20 @@
  */
 namespace Index\Index;
 use Common\Action\BaseAction;
-use Common\Util\Pagination;
-use Index\Model\Equipment;
+use Common\Util\Http;
 
 class indexAction extends BaseAction{
 
     public function execute(){
-
-        header('content-type:text/html;charset=utf-8');
-        $this->setRenderValues('title','index');
-
-        $pa = new Pagination();
-
-        $nav = $pa->getNav();
-
-        echo $nav;exit;
-
-        $this->render('index/index_index.php');
+        $case = Http::getGET('case');
+        if('top' == $case){
+            $this->render('index/index_top.php');
+        }else if('left' == $case){
+            $this->render('index/index_left.php');
+        }else if('footer' == $case){
+            $this->render('index/index_footer.php');
+        }else{
+            $this->render('index/index.php');
+        }
     }
 }

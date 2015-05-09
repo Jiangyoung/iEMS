@@ -2,22 +2,53 @@
 namespace Common\Util;
 
 class Pagination {
+    /*
+     * @var \Common\Database\DbMysqli null
+     */
+    private $conn = null;
     private $sql = '';
     private $current_page = 1;
-    private $max_row = 0;
+    private $max_row = 3;
     private $total_rows = 0;
-    private $total_page = 20;
+    private $total_page = 1;
+    private $nav_count = 5;
 
-    function __construct(){
+    function __construct($conn,$sql){
+        $this->conn = $conn;
+        $this->sql = $sql;
         $this->current_page = intval(Http::getGET('p',1));
-        if($this->current_page>$this->total_page)$this->current_page = 1;
+
+    }
+
+    public function setMax_row($max_row){
+        $this->max_row = $max_row;
     }
 
     public function getRows(){
+        $start = (($this->current_page - 1) * $this->max_row);
+        $offset = $this->max_row;
+
+        $countSQL = preg_replace('/SELECT.*FROM/','SELECT COUNT(`id`) AS count FROM',$this->sql);
+
+        $countRes = $this->conn->execute_dql($countSQL);
+        $this->total_rows = $countRes[0]['count'];
+
+        $this->total_page = ceil( floatval($this->total_rows) / floatval($this->max_row));
+        if($this->current_page>$this->total_page)$this->current_page = 1;
+
+        $sql = $this->sql . 'LIMIT %d,%d';
+        $sql = sprintf($sql,$start,$offset);
+
+        $rows = $this->conn->execute_dql($sql);
+        return $rows;
 
     }
 
     public function getTotal_rows(){
+        return $this->total_page;
+    }
+
+    public function getTotal_page(){
         return $this->total_page;
     }
 
@@ -41,12 +72,14 @@ AAA;
         //确定 导航开始位置
         $flag = 0;
         //保证最小从1开始
-        while(($this->current_page+$flag) - 2 < 0)$flag++;
+        if(($this->current_page) - 2 < 0)$flag = 0;
         //确定中间
         if(($this->current_page+$flag) - 2 > 0)$flag = ($this->current_page+$flag) - 2;
         //保证最大不超过最大页数
-        while($flag + 2*2 > $this->total_page)$flag--;
-        for($i=0;$i<5;$i++){
+        while($flag + $this->nav_count > $this->total_page){
+            $this->nav_count--;
+        }
+        for($i=1;$i<=$this->nav_count;$i++){
             if($this->current_page == ($i+$flag)){
                 $a .= sprintf($aTpl,'#','&nbsp;'.($i+$flag).'&nbsp;');
                 continue;

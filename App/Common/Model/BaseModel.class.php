@@ -2,6 +2,7 @@
 namespace Common\Model;
 
 use Common\Database\DbMysqli;
+use Common\Util\Pagination;
 
 abstract class BaseModel {
     protected $tbName = '';
@@ -11,6 +12,9 @@ abstract class BaseModel {
      */
     protected $conn = null;
 
+    /**
+     * @return DbMysqli
+     */
     private function getConnect(){
         if(!$this->conn){
             $this->conn = new DbMysqli($this->tbName,$this->tbFields);
@@ -45,6 +49,7 @@ abstract class BaseModel {
             $fields = $this->tbFields;
         }
         $res = $conn->getRowById($id,$this->tbName,$fields);
+        if('y' == $res['deleted'])$res = array();
         return $res;
     }
 
@@ -59,12 +64,21 @@ abstract class BaseModel {
         return $insert_id;
     }
 
-    public function getList($start=10,$offset=0,$fields=array()){
+    public function getList($fields=array()){
         $conn = $this->getConnect();
+
         if(empty($fields)){
             $fields = $this->tbFields;
         }
-        $res = $conn->getList($this->tbName,$start,$offset,$fields);
+
+        $sql = $conn->assembleSelectSQL($this->tbName,$fields," WHERE `deleted`='n'");
+
+        $pa = new Pagination($conn,$sql);
+
+        $res['rows'] = $pa->getRows();
+
+        $res['nav'] = $pa->getNav();
+
         return $res;
     }
 

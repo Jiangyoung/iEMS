@@ -1,5 +1,7 @@
 <?php
 namespace Common\Tpl;
+use Common\Util\Http;
+
 class PhpEngine{
 	private $templatesDir = GAPP_TPLDIR;
 	private $currentTplDir = '';
@@ -34,6 +36,11 @@ class PhpEngine{
 			extract((array)$params);
 			include $filePath;
 		}
+	}
+
+	function getHtmlByUrl($url,$data=''){
+		$res = Http::https_request($url,$data);
+		return $res;
 	}
 
 
