@@ -49,10 +49,7 @@ class PhpEngine{
 	 * @return string 返回对应文件名的URL
 	 */
 	function getFileUrl($file){
-		$baseUrl = substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'/'));
-		if('/' != substr($baseUrl,-1)){
-			$baseUrl .= '/';
-		}
-		return $baseUrl.$file;
+        $baseUrl = rtrim(GAPP_ROOT_URL,'/\\');
+		return $baseUrl.'/'.$file;
 	}
 }

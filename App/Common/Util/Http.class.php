@@ -55,12 +55,16 @@ class Http{
 
 
 
+
+
+
 	static function redirect($url){
 		switch($url){
 			case GAPP_FORBIDDEN_CONTROLLER:
 			case GAPP_FORBIDDEN_ACTION:
 			case GAPP_TOKEN_VERIFY_FAILED:
 			case GAPP_WRONG_VERIFYCODE:
+			case GAPP_PASSWORD_VERIFY_FAILED:
 
 				header('HTTP/1.1 404 Not Found');
 				echo '404 Not Found';

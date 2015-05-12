@@ -7,4 +7,6 @@ class Equipment extends BaseModel{
     protected $tbName = 'equipment';
     protected $tbFields = array('id','name','type','description','remark');
 
+
+
 }

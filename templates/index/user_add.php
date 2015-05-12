@@ -1,61 +1,83 @@
-<form class="form-horizontal">
-    <fieldset>
-        <div id="legend" class="">
-            <legend class="">添加用户</legend>
+<!DOCTYPE html>
+<html>
+<head>
+    <?php $this->load('widget/header.php'); ?>
+</head>
+<body class="container">
+<div class="page-header">
+    <h1><?php echo $actionName?></h1>
+</div>
+
+<form action="" method="post">
+
+    <div class="form-inline left">
+        <div class="input-group">
+            <div class="input-group-addon">用户名：</div>
+            <input type="text" class="form-control" name="username" value="<?php echo $postData['username']; ?>" placeholder="数字+字母">
+        </div><br/><br/>
+        <div class="input-group">
+            <div class="input-group-addon">昵称：</div>
+            <input type="text" class="form-control" name="nickname" value="<?php echo $postData['nickname']; ?>" placeholder="昵称">
+        </div><br/><br/>
+        <div class="input-group">
+            <div class="input-group-addon">密码：</div>
+            <input type="password" class="form-control" name="password" value="<?php echo $postData['password']; ?>" placeholder="六位数字字母">
+        </div><br/><br/>
+        <div class="input-group">
+            <div class="input-group-addon">确认密码：</div>
+            <input type="password" class="form-control" name="password2" value="<?php echo $postData['password2']; ?>" placeholder="再次输入">
+        </div><br/><br/>
+        <div class="input-group">
+            <div class="input-group-addon">备注：</div>
+            <input type="text" class="form-control" name="remark" value="<?php echo $postData['remark']; ?>" placeholder="备注">
+        </div><br/><br/>
+        <div class="input-group">
+            <div class="input-group-addon">手机号：</div>
+            <input type="number" class="form-control" name="phone" value="<?php echo $postData['phone']; ?>" placeholder="手机号">
+        </div><br/><br/>
+        <div class="input-group">
+            <div class="input-group-addon">邮箱：</div>
+            <input type="email" class="form-control" name="email" value="<?php echo $postData['email']; ?>" placeholder="邮箱">
+        </div><br/><br/>
+    </div>
+    <div class="right">
+        <img src="" id="photoThumb" class="thumbnail" style="width: 200px; height: 200px;"/>
+        <input id="file_upload" name="file_upload" type="file" multiple="true">
+        <input type="hidden" name="photo_path" value="<?php echo $postData['photo_path']; ?>"/>
+        <input type="hidden" name="_token" value="<?php echo $_token; ?>"
+        <div id="queue"></div>
+    </div><br/>
+
+
+    <div class="submit">
+        <div id="errMsg">
+            <?php
+            $errMsgTpl = '<p class="bg-danger">%s</p>';
+            foreach($errMsg as $e){
+                echo sprintf($errMsgTpl,$e);
+            }
+            ?>
         </div>
-        <div class="control-group">
-
-            <!-- Text input-->
-            <label class="control-label" for="input01">用户名：</label>
-            <div class="controls">
-                <input type="text" placeholder="这里输入用户名" class="input-xlarge">
-                <p class="help-block">字母+数字</p>
-            </div>
-        </div>
-
-        <div class="control-group">
-
-            <!-- Text input-->
-            <label class="control-label" for="input01">密码：</label>
-            <div class="controls">
-                <input type="text" placeholder="这里输入密码密码" class="input-xlarge">
-                <p class="help-block">字母+数字 建议6位以上</p>
-            </div>
-        </div>
-
-        <div class="control-group">
-
-            <!-- Search input-->
-            <label class="control-label">确认密码：</label>
-            <div class="controls">
-                <input type="text" placeholder="再次输入密码" class="input-xlarge search-query">
-                <p class="help-block">重复上面的输入</p>
-            </div>
-
-        </div>
-
-        <div class="control-group">
-
-            <!-- Text input-->
-            <label class="control-label" for="input01">Text input</label>
-            <div class="controls">
-                <input type="text" placeholder="placeholder" class="input-xlarge">
-                <p class="help-block">Supporting help text</p>
-            </div>
-        </div>
-
-    </fieldset>
+        <input type="submit" class="btn btn-primary" value="保&nbsp;&nbsp;&nbsp;存">
+    </div>
 </form>
-<form>
-    <input id="file_upload" name="file_upload" type="file" multiple="true">
-    <input type="hidden" name="photo_path" value=""/>
-    <img src="" id="photoThumb" class="thumbnail" style="width: 200px; height: 200px;"/>
-</form>
+<?php $this->load('widget/footer.php'); ?>
 <script type="text/javascript">
     <?php $timestamp = time();?>
     $(function() {
+
+        $("input[name='username']").on('keyup',function(){
+            var username = $(this).val();
+            $("input[name='nickname']").val(username);
+        });
+
+        var clearErrMsg = function(){
+            $("#errMsg").text("");
+        };
+        setTimeout(clearErrMsg,8000);
+
         $('#file_upload').uploadify({
-            'buttonText':'上传图片',
+            'buttonText':'上传头像',
             'fileTypeExts':"*.jpg;*.jpeg;*.png;*.gif;*.bmp",
             'formData'     : {
                 'timestamp' : '<?php echo $timestamp;?>',
@@ -76,3 +98,5 @@
         });
     });
 </script>
+</body>
+</html>

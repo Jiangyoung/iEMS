@@ -23,7 +23,7 @@ class App{
 		}
 
 		
-		$actionPath = '\\'.GAPP_APPNAME.'\\'.$controller;
+		$actionPath = '\\'.GAPP_APPNAME.'\\'.'Action'.'\\'.$controller;
 		$actionName = $actionPath.'\\'.$action.'Action';
 		$obj = new $actionName;
 		$obj->execute();

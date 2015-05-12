@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <link href="<?php echo $this->getFileUrl('static/css/index/user_login.css'); ?>" rel="stylesheet"/>
-    <title>login</title>
     <style>body {
             background-color:#f6f8f9;
             background-image:none;

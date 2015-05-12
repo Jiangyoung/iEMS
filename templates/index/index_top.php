@@ -1,8 +1,7 @@
-<!DOCTYPE hmlt>
+<!DOCTYPE html>
 <html>
 <head>
     <?php $this->load('widget/header.php'); ?>
-    <title>left</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -14,7 +13,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">设备管理系统</a>
+            <a class="navbar-brand" href="index.php?c=index&a=list" target="container">设备管理系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

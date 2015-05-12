@@ -22,3 +22,7 @@ define('GAPP_TOKEN_VERIFY_FAILED',101);
  * 错误的验证码
  */
 define('GAPP_WRONG_VERIFYCODE',102);
+/**
+ * 密码验证失败
+ */
+define('GAPP_PASSWORD_VERIFY_FAILED',103);

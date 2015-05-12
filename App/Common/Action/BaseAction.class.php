@@ -9,7 +9,6 @@
 namespace Common\Action;
 
 use Common\Tpl\PhpEngine;
-use Common\Util\String;
 use Common\Util\Http;
 
 abstract class BaseAction{
@@ -22,7 +21,7 @@ abstract class BaseAction{
     protected $posts = array();
     protected $gets = array();
 
-    function __construct()
+    final function __construct()
     {
         $this->view = new PhpEngine();
         //用htmlspecialchars('',ENT_QUOTES) 处理参数（get和post的）
@@ -31,18 +30,24 @@ abstract class BaseAction{
         };
         if('POST' == $_SERVER['REQUEST_METHOD']){
             $this->isPost = true;
-            $this->gets = array_map($filterFunc,$_GET);
+            $this->posts = array_map($filterFunc,$_POST);
             $this->verifyToken(Http::getPOST('_token'));
         }else if('GET' == $_SERVER['REQUEST_METHOD']){
             $this->isGet = true;
-            $this->posts = array_map($filterFunc,$_POST);
+            $this->gets = array_map($filterFunc,$_GET);
             $this->addToken();
         }else{
             $this->isGet = false;
             $this->isPost =false;
         }
+        $this->init();
+        $controllerName = Http::getGET('c');
+        $actionName = Http::getGET('a');
+        $this->setRenderValues('controllerName',$controllerName);
+        $this->setRenderValues('actionName',$actionName);
+        $this->setRenderValues('errMsg',array());
     }
-    private function init(){
+    protected function init(){
 
     }
     abstract public function execute();
@@ -77,12 +82,12 @@ abstract class BaseAction{
     /**
      * 添加token
      * @param string $salt 干扰值
-     * token生成：md5($salt.String::randString(6,0));
-     * 存入session中 $token
+     * token生成：md5($salt.mt_rand(10000,20000).time());
+     * 存入session中 $_SESSION['_token'] = $tokenCode;
      */
     function addToken($salt='!.#$1^*l'){
         if(!isset($_SESSION['_token']) || empty($_SESSION['_token'])){
-            $tokenCode = md5($salt.String::randString(6,0));
+            $tokenCode = md5($salt.mt_rand(10000,20000).time());
             $_SESSION['_token'] = $tokenCode;
         }
         $this->setRenderValues('_token',$_SESSION['_token']);

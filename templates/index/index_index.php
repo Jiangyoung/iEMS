@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -10,13 +9,10 @@
     <meta name="author" content="">
     <link rel="icon" href="<?php echo $this->getFileUrl('static/images/logo.jpg'); ?>">
 
-    <title><?php echo $title; ?></title>
-
     <?php $this->load('widget/header.php'); ?>
 
     <link href="<?php echo $this->getFileUrl('static/css/index/dashboard.css'); ?>" rel="stylesheet">
 
-    <link href="<?php echo $this->getFileUrl('static/css/index/index.css'); ?>">
 
 </head>
 

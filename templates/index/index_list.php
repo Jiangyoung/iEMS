@@ -1,4 +1,13 @@
-<?php $this->load('widget/head.php'); ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <?php $this->load('widget/header.php'); ?>
+</head>
+<body class="container">
+
+<div class="page-header">
+    <h1><?php echo $listName?></h1>
+</div>
 
 <table class="table table-hover">
     <tr>
@@ -12,4 +21,6 @@
     </tr>
 </table>
 
-<?php $this->load('widget/foot.php'); ?>
+<?php $this->load('widget/footer.php'); ?>
+</body>
+</html>
