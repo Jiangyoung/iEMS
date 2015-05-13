@@ -15,7 +15,7 @@ class DbMysqli{
     private $tbPrefix = '';
 
     final function __construct(){
-        $dbConfig = require"configs/db_config.php";
+        $dbConfig = ConfigHelper::getConfigs('db');
         $this->tbPrefix = $dbConfig['tbprefix'];
         $this->conn = @new \mysqli($dbConfig['host'],$dbConfig['user'],$dbConfig['passwd'],$dbConfig['dbname']);
         if(mysqli_connect_errno()){
@@ -36,6 +36,14 @@ class DbMysqli{
 
     protected function init(){
 
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    function real_escape_string($value){
+        return $this->conn->real_escape_string($value);
     }
 
     /**
@@ -65,7 +73,12 @@ class DbMysqli{
             $sql .= " LIMIT {$limit} ";
         }
         $queryRes = $this->conn->query($sql);
-        $res = $queryRes->fetch_all(MYSQLI_ASSOC);
+        $res = array();
+        if($queryRes){
+            while($row = $queryRes->fetch_assoc()){
+                $res[] = $row;
+            }
+        }
         $queryRes->close();
         return $res;
     }

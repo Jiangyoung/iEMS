@@ -54,7 +54,7 @@ class Pagination {
 
     public function getNav(){
         $navTpl = <<<AAA
-<div class="iPagination"><hr/>
+<div class="page-nav"><hr/>
     %s &nbsp;|&nbsp;第%d页/共%d页
 </div>
 AAA;

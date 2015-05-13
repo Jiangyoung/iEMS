@@ -3,9 +3,24 @@ namespace Index\Model;
 
 use Common\Model\BaseModel;
 
+/*
+CREATE TABLE IF NOT EXISTS `iems_user`(
+  `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `username` VARCHAR(32) DEFAULT '',
+  `nickname` VARCHAR(32) DEFAULT '',
+  `password` VARCHAR(64) DEFAULT '',
+  `phone` VARCHAR(16) DEFAULT '',
+  `email` VARCHAR(48) DEFAULT '',
+  `photo_path` VARCHAR(128) DEFAULT '',
+  `type` TINYINT UNSIGNED DEFAULT 0,
+  `remark` VARCHAR(128) DEFAULT '',
+  `deleted` ENUM('n','y') DEFAULT 'n'
+);
+ */
+
 class User extends BaseModel{
     protected $tbName = 'user';
-    protected $tbFields = array('id','username','password','type','remark');
+    protected $tbFields = array('id','username','nickname','password','phone','email','photo_path','type','remark');
 
     /**
      * @param string $username
@@ -23,7 +38,7 @@ class User extends BaseModel{
             $sql = $conn->assembleSelectSQL($this->tbName,$this->tbFields," WHERE `password`='{$password}' AND `deleted`='n' LIMIT 1");
 
             $res = $conn->execute_dql($sql);
-            if($res[0]){
+            if(isset($res[0])){
                 $_SESSION['_USER_INFO'] = $res[0];
                 return true;
             }

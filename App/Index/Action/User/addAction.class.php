@@ -1,5 +1,6 @@
 <?php
 namespace Index\Action\User;
+use Common\Util\Http;
 use Index\Model\User;
 use Common\Action\BaseAction;
 use Common\Action\Traits4addAction;
@@ -24,9 +25,10 @@ class addAction extends BaseAction{
             'nickname'=>'',
             'password'=>'',
             'password2'=>'',
-            'remark'=>'',
             'phone'=>'',
-            'email'=>''
+            'email'=>'',
+            'remark'=>'',
+            'photo_path'=>''
         );
     }
     function formatForInsert($params){
@@ -35,7 +37,7 @@ class addAction extends BaseAction{
     }
 
     function afterForInsert($insert_id){
-
+        Http::redirect('index.php?c=user&a=list');
     }
 
 

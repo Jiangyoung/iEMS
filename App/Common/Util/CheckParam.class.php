@@ -81,12 +81,14 @@ class CheckParam {
     }
 
     function checkUploadFile($file,$name=""){
-        $fileUrl = GAPP_ROOT_PATH.'/'.$file;
-        var_dump($fileUrl);
-        if(file_exists($fileUrl)){
-           return true;
+        if(!empty($file)){
+            $fileUrl = GAPP_ROOT_PATH.'/'.$file;
+
+            if(file_exists($fileUrl)){
+                return true;
+            }
+            $this->setError($name.' 需要上传.');
         }
-        $this->setError($name.' 需要上传.');
         return false;
     }
 

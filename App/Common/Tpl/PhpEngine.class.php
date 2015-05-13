@@ -49,6 +49,9 @@ class PhpEngine{
 	 * @return string 返回对应文件名的URL
 	 */
 	function getFileUrl($file){
+        if(empty($file)){
+            return '';
+        }
         $baseUrl = rtrim(GAPP_ROOT_URL,'/\\');
 		return $baseUrl.'/'.$file;
 	}
