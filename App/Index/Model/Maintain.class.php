@@ -1,11 +1,16 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Jiangyoung
+ * Date: 2015/5/14
+ * Time: 0:23
+ */
 namespace Index\Model;
-
 use Common\Model\BaseModel;
 
 /*
-DROP TABLE IF EXISTS `iems_equipment`;
-CREATE TABLE IF NOT EXISTS `iems_equipment`(
+DROP TABLE IF EXISTS `iems_maintain`;
+CREATE TABLE IF NOT EXISTS `iems_maintain`(
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(32) DEFAULT '',
   `model` VARCHAR(64) DEFAULT '',
@@ -17,10 +22,8 @@ CREATE TABLE IF NOT EXISTS `iems_equipment`(
   `deleted` ENUM('n','y') DEFAULT 'n'
 );
  */
-class Equipment extends BaseModel{
-    protected $tbName = 'equipment';
-    protected $tbFields = array('id','name','model','create_time','status','type','description','remark');
 
-
-
+class Maintain extends BaseModel{
+    protected $tbName = 'maintain';
+    protected $tbFields = array();
 }
