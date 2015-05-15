@@ -10,7 +10,7 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>#</th><th>用户名</th><th>手机号</th><th>邮箱</th><th>头像</th><th>备注</th><th>类型</th><th>操作</th>
+        <th>#</th><th>用户名</th><th>昵称</th><th>手机号</th><th>邮箱</th><th>头像</th><th>备注</th><th>类型</th><th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -18,6 +18,7 @@
     <tr>
         <td><?php echo $k+1; ?></td>
         <td><?php echo $v['username']; ?></td>
+        <td><?php echo $v['nickname']; ?></td>
         <td><?php echo $v['phone']; ?></td>
         <td><?php echo $v['email']; ?></td>
         <td><img src="<?php echo $this->getFileUrl($v['photo_path']); ?>" class="thumbnail" style="width:80px;" /></td>

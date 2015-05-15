@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `iems_p_e`(
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   `e_id` INT UNSIGNED DEFAULT 0,
   `p_id` INT UNSIGNED DEFAULT 0,
+  `create_time` INT DEFAULT 0,
   `remark` VARCHAR(128) DEFAULT '',
   `deleted` ENUM('n','y') DEFAULT 'n'
 );
@@ -21,5 +22,5 @@ CREATE TABLE IF NOT EXISTS `iems_p_e`(
 
 class P_e extends BaseModel{
     protected $tbName = 'p_e';
-    protected $tbFields = array();
+    protected $tbFields = array('id','e_id','p_id','create_time','remark');
 }

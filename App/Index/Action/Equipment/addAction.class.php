@@ -2,9 +2,33 @@
 namespace Index\Action\Equipment;
 
 use Common\Action\BaseAction;
+use Common\Action\Traits4addAction;
+use Index\Model\Equipment;
 
 class addAction extends BaseAction{
-    function execute(){
-        $this->render('index/equipment_add.php');
+    use Traits4addAction;
+    function getModelForInsert(){
+        $model = new Equipment();
+        return $model;
+    }
+    function getPostDataForInsert(){
+        $model = $this->getModelForInsert();
+        $typeTexts = $model->getTypeTexts();
+        return array(
+            'name'=>'',
+            'typeTexts'=>$typeTexts,
+            'model'=>'',
+            'description'=>'',
+            'remark'=>''
+        );
+    }
+    function getTplForInsert(){
+        return 'index/equipment_add.php';
+    }
+    function formatForInsert($params){
+        return $params;
+    }
+    function afterForInsert($insert_id){
+        Http::redirect('index.php?c=place&a=list');
     }
 }

@@ -13,6 +13,8 @@ use Common\Model\BaseModel;
 DROP TABLE IF EXISTS `iems_circulate`;
 CREATE TABLE IF NOT EXISTS `iems_circulate`(
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `type` TINYINT UNSIGNED DEFAULT 0,
+  `state` TINYINT UNSIGNED DEFAULT 0,
   `e_id` INT UNSIGNED DEFAULT 0,
   `u_id` INT UNSIGNED DEFAULT 0,
   `admin_id` INT UNSIGNED DEFAULT 0,
@@ -24,5 +26,5 @@ CREATE TABLE IF NOT EXISTS `iems_circulate`(
 
 class Circulate extends BaseModel{
     protected $tbName = 'circulate';
-    protected $tbFields = array('id','e_id','u_id','admin_id','create_time','remark');
+    protected $tbFields = array('id','type','state','e_id','u_id','admin_id','create_time','remark');
 }

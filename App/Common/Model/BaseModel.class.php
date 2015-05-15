@@ -2,6 +2,7 @@
 namespace Common\Model;
 
 use Common\Database\DbMysqli;
+use Common\Register;
 use Common\Util\CheckParam;
 use Common\Util\Pagination;
 
@@ -25,7 +26,13 @@ abstract class BaseModel {
      */
     function getConnect(){
         if(!$this->conn){
-            $this->conn = new DbMysqli($this->tbName,$this->tbFields);
+            if(!Register::_get('db_conn')){
+                $this->conn = new DbMysqli($this->tbName,$this->tbFields);
+                Register::_set('db_conn',$this->conn);
+            }else{
+                $this->conn = Register::_get('db_conn');
+            }
+
         }
         return $this->conn;
     }
@@ -103,6 +110,20 @@ abstract class BaseModel {
         $sql = $conn->assembleUpdateSQL($this->tbName,$params,$extra);
         $res = $conn->execute_dml($sql);
         return $res;
+    }
+
+    /**
+     * @param array $condition
+     * @return bool
+     */
+    public function getCount($condition){
+        $conn = $this->getConnect();
+        $sql = $conn->assembleCountSQL($this->tbName,$condition);
+        $res = $conn->execute_dql($sql);
+        if(isset($res[0])){
+            return $res[0]['count'];
+        }
+        return false;
     }
 
     public function htmlspecialcharsParams($params){

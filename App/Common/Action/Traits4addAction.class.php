@@ -10,30 +10,32 @@ namespace Common\Action;
 trait Traits4addAction{
 
     function execute(){
-        $renderTpl = $this->getInsertRenderTpl();
+        $renderTpl = $this->getTplForInsert();
+        $postData = $this->getPostDataForInsert();
+        $this->setRenderValues('postData',$postData);
+
         if($this->isPost){
-            $model = $this->getInsertModel();
+            $model = $this->getModelForInsert();
             if($model->checkParams($_POST)){
                 $params = $this->formatForInsert($this->posts);
                 $insert_id = $model->insertOne($params);
                 $this->afterForInsert($insert_id);
             }else{
                 $this->addToken();
-                $this->setRenderValues('postData',$_POST);
+                $this->setRenderValues('postData',array_merge($postData,$_POST));
                 $this->setRenderValues('errMsg',$model->getCheckErr());
                 $this->render($renderTpl);
             }
 
 
         }else{
-            $postData = $this->getInsertPostData();
-            $this->setRenderValues('postData',$postData);
+
             $this->render($renderTpl);
         }
     }
-    abstract function getInsertModel();
-    abstract function getInsertPostData();
-    abstract function getInsertRenderTpl();
+    abstract function getModelForInsert();
+    abstract function getPostDataForInsert();
+    abstract function getTplForInsert();
     abstract function formatForInsert($params);
     abstract function afterForInsert($insert_id);
 }

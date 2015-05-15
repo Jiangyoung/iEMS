@@ -14,6 +14,7 @@ use Common\Util\Http;
 abstract class BaseAction{
     protected $renderValues = array();
     protected $view = null;
+
     //请求类型判断
     protected $isGet = false;
     protected $isPost =false;
@@ -24,6 +25,7 @@ abstract class BaseAction{
     final function __construct()
     {
         $this->view = new PhpEngine();
+
         //用htmlspecialchars('',ENT_QUOTES) 处理参数（get和post的）
         $filterFunc = function($s){
             return htmlspecialchars($s,ENT_QUOTES);
@@ -40,12 +42,13 @@ abstract class BaseAction{
             $this->isGet = false;
             $this->isPost =false;
         }
-        $this->init();
+
         $controllerName = Http::getGET('c');
         $actionName = Http::getGET('a');
         $this->setRenderValues('controllerName',$controllerName);
         $this->setRenderValues('actionName',$actionName);
         $this->setRenderValues('errMsg',array());
+        $this->init();
     }
     protected function init(){
 

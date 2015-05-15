@@ -6,16 +6,17 @@ use Common\Model\BaseModel;
 /*
 CREATE TABLE IF NOT EXISTS `iems_user`(
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  `username` VARCHAR(32) DEFAULT '',
-  `nickname` VARCHAR(32) DEFAULT '',
-  `password` VARCHAR(64) DEFAULT '',
-  `phone` VARCHAR(16) DEFAULT '',
-  `email` VARCHAR(48) DEFAULT '',
-  `photo_path` VARCHAR(128) DEFAULT '',
-  `type` TINYINT UNSIGNED DEFAULT 0,
-  `remark` VARCHAR(128) DEFAULT '',
+  `username` VARCHAR(32) DEFAULT '' COMMENT '用户名',
+  `nickname` VARCHAR(32) DEFAULT '' COMMENT '昵称',
+  `password` VARCHAR(64) DEFAULT '' COMMENT '密码',
+  `phone` VARCHAR(16) DEFAULT '' COMMENT '手机号',
+  `email` VARCHAR(48) DEFAULT '' COMMENT '邮箱',
+  `create_time` INT DEFAULT 0 COMMENT '添加时间',
+  `photo_path` VARCHAR(128) DEFAULT '' COMMENT '头像路径',
+  `type` TINYINT UNSIGNED DEFAULT 0 COMMENT '用户类型',
+  `remark` VARCHAR(128) DEFAULT '' COMMENT '备注',
   `deleted` ENUM('n','y') DEFAULT 'n'
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
  */
 
 class User extends BaseModel{
@@ -71,5 +72,35 @@ class User extends BaseModel{
         }
         $check->setError('用户名已存在.');
         return false;
+    }
+
+    function getTypes(){
+        return array(1,2,3);
+    }
+    function getTypeText($type){
+        $text = '';
+        switch($type){
+            case 1:
+                $text = '普通管理员';
+                break;
+            case 2:
+                $text = '维护人员';
+                break;
+            case 3:
+                $text = '租借人员';
+                break;
+            default:
+                $text = '普通新添';
+        }
+        return $text;
+    }
+    function getTypeTexts(){
+
+        $res = array();
+        $types = $this->getTypes();
+        foreach($types as $type){
+            $res[$type] = $this->getTypeText($type);
+        }
+        return $res;
     }
 }

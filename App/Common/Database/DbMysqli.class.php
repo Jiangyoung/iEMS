@@ -193,6 +193,27 @@ class DbMysqli{
         return $sql;
     }
 
+    /**
+     * @param string $tbName
+     * @param array $condition
+     * @return string
+     */
+    public function assembleCountSQL($tbName,$condition=array()){
+        $sql = 'SELECT COUNT(`id`) AS count FROM `%s` %s';
+        if(empty($condition)){
+            $sql = sprintf($sql,$this->tbPrefix.$tbName,'');
+        }else{
+            $res = ' WHERE ';
+            $flag = 1;
+            foreach($condition as $k => $v){
+                if(1 != $flag++)$res .= ' AND ';
+                $res .= " `{$k}`='{$v}' ";
+            }
+            $sql = sprintf($sql,$this->tbPrefix.$tbName,$res);
+        }
+        return $sql;
+    }
+
     public function close(){
         $this->conn->close();
     }

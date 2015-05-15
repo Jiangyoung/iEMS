@@ -3,6 +3,7 @@ namespace Index\Action\User;
 
 use Common\Action\BaseAction;
 use Common\Action\Traits4listAction;
+use Common\Util\Http;
 use Index\Model\User;
 
 class listAction extends BaseAction{
@@ -12,9 +13,19 @@ class listAction extends BaseAction{
         $this->setRenderValues('actionName','用户管理');
     }
 
-    function getListResForList(){
+    function getModelForList(){
         $model = new User();
-        $res = $model->getList();
+        return $model;
+    }
+    function getListResForList(){
+        $model = $this->getModelForList();
+        $type = Http::getGET('type',0);
+        $res = array();
+        if($type != 0){
+            $res = $model->getList(array()," WHERE `type`='{$type}' AND `deleted`='n'");
+        }else {
+            $res = $model->getList();
+        }
         return $res;
     }
 
@@ -24,37 +35,11 @@ class listAction extends BaseAction{
     }
 
     function formatListForList($list){
+        $model = $this->getModelForList();
         foreach($list as $k => $v){
-            $list[$k]['typeText'] = $this->getTypeText($v);
+            $list[$k]['typeText'] = $model->getTypeText($v);
         }
         return $list;
     }
 
-    function getTypes(){
-        return array('0','1','2');
-    }
-
-    function getTypeTexts(){
-        $typeTexts = array();
-        $types = $this->getTypes();
-        foreach($types as $type){
-            $typeTexts[$type] = $this->getTypeText($type);
-        }
-        return $typeTexts;
-    }
-
-    function getTypeText($type){
-        $text = '';
-        switch(intval($type)){
-            case 0:
-                $text = 'case0';
-                break;
-            case 1:
-                $text = 'case1';
-            break;
-            default:
-                $text = 'default';
-        }
-        return $text;
-    }
 }
