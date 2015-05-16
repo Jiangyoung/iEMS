@@ -17,3 +17,7 @@ form .submit{
     clear:left ;
     padding: 20px;
 }
+
+.page-nav{
+    text-align: right;
+}

@@ -55,7 +55,7 @@ class DbMysqli{
      */
     function execute_dql($sql,$order=null,$limit=null)
     {
-        //var_dump($sql);
+        var_dump($sql);
         if(is_array($order)){
             $sql_order = '';
             $flag = 1;
@@ -166,6 +166,16 @@ class DbMysqli{
         return $res;
     }
 
+    public function assembleConditions($params,$condition='AND'){
+        $res = '';
+        $flag = 1;
+        foreach($params as $v){
+            if(1 != $flag++)$res .= " {$condition} ";
+                $res .= " `{$v['field']}` {$v['sign']} '{$v['value']}'";
+            }
+        return $res;
+    }
+
     public function assembleParams($params){
         $resTpl = " `%s`='%s' ";
         $res = '';
@@ -194,21 +204,18 @@ class DbMysqli{
     }
 
     /**
-     * @param string $tbName
-     * @param array $condition
+     * @param $tbName
+     * @param array $params
+     * @param string $condition
      * @return string
      */
-    public function assembleCountSQL($tbName,$condition=array()){
+    public function assembleCountSQL($tbName,$params=array(),$condition='AND'){
         $sql = 'SELECT COUNT(`id`) AS count FROM `%s` %s';
         if(empty($condition)){
             $sql = sprintf($sql,$this->tbPrefix.$tbName,'');
         }else{
             $res = ' WHERE ';
-            $flag = 1;
-            foreach($condition as $k => $v){
-                if(1 != $flag++)$res .= ' AND ';
-                $res .= " `{$k}`='{$v}' ";
-            }
+            $res .= $this->assembleConditions($params,$condition);
             $sql = sprintf($sql,$this->tbPrefix.$tbName,$res);
         }
         return $sql;

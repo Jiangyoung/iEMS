@@ -20,6 +20,12 @@ return array(
 	'delete',
 	'update'
 ),
+'Place'		=>			array(
+    'add',
+    'list',
+    'delete',
+    'update'
+),
 'Maintain'		=>			array(
 	'login',
 	'add',

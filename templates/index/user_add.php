@@ -20,14 +20,14 @@
     <div class="form-inline left">
         <div class="input-group">
             <div class="input-group-addon">用户名：<span class="text-danger">*</span></div>
-            <input type="text" class="form-control" name="username" value="<?php echo $postData['username']; ?>" placeholder="数字+字母">
+            <input required="true" type="text" class="form-control" name="username" value="<?php echo $postData['username']; ?>" placeholder="数字+字母">
         </div><br/><br/>
         <div class="input-group">
             <div class="input-group-addon">昵称：</div>
-            <input type="text" class="form-control" name="nickname" value="<?php echo $postData['nickname']; ?>" placeholder="昵称">
+            <input  type="text" class="form-control" name="nickname" value="<?php echo $postData['nickname']; ?>" placeholder="昵称">
         </div><br/><br/>
         <div class="input-group">
-            <div class="input-group-addon">类型：</div>
+            <div required="true" class="input-group-addon">类型：</div>
             <select name="type" class="form-control">
                 <?php $typeTpl = '<option value="%d" %s>%s</option>';
                 foreach($postData['typeTexts'] as $k => $v){
@@ -40,11 +40,11 @@
             </select>
         </div><br/><br/>
         <div class="input-group">
-            <div class="input-group-addon">密码：<span class="text-danger">*</span></div>
+            <div required="true" class="input-group-addon">密码：<span class="text-danger">*</span></div>
             <input type="password" class="form-control" name="password" value="<?php echo $postData['password']; ?>" placeholder="六位数字字母">
         </div><br/><br/>
         <div class="input-group">
-            <div class="input-group-addon">确认密码：<span class="text-danger">*</span></div>
+            <div required="true" class="input-group-addon">确认密码：<span class="text-danger">*</span></div>
             <input type="password" class="form-control" name="password2" value="<?php echo $postData['password2']; ?>" placeholder="再次输入">
         </div><br/><br/>
         <div class="input-group">
@@ -52,7 +52,7 @@
             <textarea rows="3" class="form-control" name="remark" value="" placeholder="备注"><?php echo $postData['remark']; ?></textarea>
         </div><br/><br/>
         <div class="input-group">
-            <div class="input-group-addon">手机号：<span class="text-danger">*</span></div>
+            <div required="true" class="input-group-addon">手机号：<span class="text-danger">*</span></div>
             <input type="number" class="form-control" name="phone" value="<?php echo $postData['phone']; ?>" placeholder="手机号">
         </div><br/><br/>
         <div class="input-group">
@@ -74,6 +74,7 @@
     </div>
 </form>
 <?php $this->load('widget/footer.php'); ?>
+<script src="<?php echo $this->getFileUrl('uploadify/jquery.uploadify.min.js'); ?>" type="text/javascript"></script>
 <script type="text/javascript">
     <?php $timestamp = time();?>
     $(function() {

@@ -3,6 +3,7 @@ namespace Index\Action\Equipment;
 
 use Common\Action\BaseAction;
 use Common\Action\Traits4addAction;
+use Common\Util\Http;
 use Index\Model\Equipment;
 
 class addAction extends BaseAction{
@@ -29,6 +30,6 @@ class addAction extends BaseAction{
         return $params;
     }
     function afterForInsert($insert_id){
-        Http::redirect('index.php?c=place&a=list');
+        Http::redirect('index.php?c=equipment&a=list');
     }
 }

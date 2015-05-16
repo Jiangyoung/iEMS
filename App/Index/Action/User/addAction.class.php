@@ -22,7 +22,7 @@ class addAction extends BaseAction{
     function getPostDataForInsert(){
         $model = $this->getModelForInsert();
         $typeTexts = $model->getTypeTexts();
-        return array(
+        $postData =  array(
             'username'=>'',
             'nickname'=>'',
             'type'=>'',
@@ -34,6 +34,7 @@ class addAction extends BaseAction{
             'remark'=>'',
             'photo_path'=>''
         );
+        return $postData;
     }
     function formatForInsert($params){
         $params['create_time'] = time();

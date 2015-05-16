@@ -12,8 +12,9 @@ use Common\Model\BaseModel;
 DROP TABLE IF EXISTS `iems_p_e`;
 CREATE TABLE IF NOT EXISTS `iems_p_e`(
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  `e_id` INT UNSIGNED DEFAULT 0,
   `p_id` INT UNSIGNED DEFAULT 0,
+  `e_id` INT UNSIGNED DEFAULT 0,
+  `amount` INT UNSIGNED DEFAULT 0,
   `create_time` INT DEFAULT 0,
   `remark` VARCHAR(128) DEFAULT '',
   `deleted` ENUM('n','y') DEFAULT 'n'

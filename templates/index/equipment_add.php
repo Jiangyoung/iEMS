@@ -20,10 +20,10 @@
     <div class="form-inline left">
         <div class="input-group">
             <div class="input-group-addon">设备名称：<span class="text-danger">*</span></div>
-            <input type="text" class="form-control" name="name" value="<?php echo $postData['name']; ?>" placeholder="设备名称">
+            <input type="text" required="true" class="form-control" name="name" value="<?php echo $postData['name']; ?>" placeholder="设备名称">
         </div><br/><br/>
         <div class="input-group">
-            <div class="input-group-addon">设备类型：</div>
+            <div required="true" class="input-group-addon">设备类型：</div>
             <select name="type" class="form-control">
                 <?php
                 $typeTpl = '<option value="%s">%s</option>';
@@ -34,8 +34,8 @@
             </select>
         </div><br/><br/>
         <div class="input-group">
-            <div class="input-group-addon">型号：<span class="text-danger">*</span></div>
-            <input type="text" class="form-control" name="model" value="<?php echo $postData['model']; ?>" placeholder="设备型号">
+            <div  class="input-group-addon">型号：<span class="text-danger">*</span></div>
+            <input required="true" type="text" class="form-control" name="model" value="<?php echo $postData['model']; ?>" placeholder="设备型号">
         </div><br/><br/>
         <div class="input-group">
             <div class="input-group-addon">描述：<span class="text-danger">*</span></div>
@@ -60,14 +60,10 @@
     </div>
 </form>
 <?php $this->load('widget/footer.php'); ?>
+<script src="<?php echo $this->getFileUrl('uploadify/jquery.uploadify.min.js'); ?>" type="text/javascript"></script>
 <script type="text/javascript">
     <?php $timestamp = time();?>
     $(function() {
-
-        $("input[name='username']").on('keyup',function(){
-            var username = $(this).val();
-            $("input[name='nickname']").val(username);
-        });
 
         var clearErrMsg = function(){
             $("#errMsg").text("");

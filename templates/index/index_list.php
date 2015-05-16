@@ -11,7 +11,7 @@
 
 <table class="table table-hover">
     <tr>
-        <td colspan="4">用户管理</td>
+        <td colspan="4"><h3><strong>用户管理</strong></h3></td>
     </tr>
     <tr>
         <td>所有人员：<a href="index.php?c=user&a=list">【<?php echo $count['user_all']; ?>】</a></td>
@@ -20,7 +20,7 @@
         <td >租借人员<a href="index.php?c=user&a=list&type=3">【<?php echo $count['user_type3']; ?>】</a></td>
     </tr>
     <tr>
-        <td colspan="4">设备管理</td>
+        <td colspan="4"><h3><strong>设备管理</strong></h3></td>
     </tr>
     <tr>
         <td>所有设备<a href="index.php?c=equipment&a=list">【<?php echo $count['equipment_all']; ?>】</a></td>
@@ -35,10 +35,10 @@
         <td>精密仪器<a href="index.php?c=equipment&a=list&type=4">【<?php echo $count['equipment_type4']; ?>】</a></td>
     </tr>
     <tr>
-        <td colspan="4">实验室管理</td>
+        <td colspan="4"><h3><strong>实验室管理</strong></h3></td>
     </tr>
     <tr>
-        <td colspan="4">所有实验室【5】</td>
+        <td colspan="4">所有实验室<a href="index.php?c=place&a=list">【<?php echo $count['place_all']; ?>】</a></td>
     </tr>
 </table>
 

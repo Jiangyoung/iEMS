@@ -28,7 +28,11 @@ abstract class BaseAction{
 
         //用htmlspecialchars('',ENT_QUOTES) 处理参数（get和post的）
         $filterFunc = function($s){
-            return htmlspecialchars($s,ENT_QUOTES);
+            if(is_string($s)){
+                return htmlspecialchars($s,ENT_QUOTES);
+            } else{
+                return $s;
+            }
         };
         if('POST' == $_SERVER['REQUEST_METHOD']){
             $this->isPost = true;

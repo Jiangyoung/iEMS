@@ -5,7 +5,6 @@
 <!-- uploadify css -->
 <link rel="stylesheet" type="text/css" href="<?php echo $this->getFileUrl('uploadify/uploadify.css'); ?>">
 
-<link href="<?php echo $this->getFileUrl('static/css/index/icss.css'); ?>" rel="stylesheet">
 
 <link href="<?php echo $this->getFileUrl('static/css/index/icss.css'); ?>" rel="stylesheet">
 

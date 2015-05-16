@@ -63,6 +63,7 @@ abstract class BaseModel {
         return $resultParams;
     }
 
+
     /**
      * @param $params
      * @return bool
@@ -80,13 +81,14 @@ abstract class BaseModel {
 
     /**
      * @param $id
-     * @param $fields
+     * @param array $fields
      * @return array
      */
-    public function getRowById($id,$fields){
+    public function getRowById($id,$fields=array()){
         $conn = $this->getConnect();
         if(empty($fields)){
             $fields = $this->tbFields;
+            $fields[] = 'deleted';
         }
         $res = $conn->getRowById($id,$this->tbName,$fields);
         if('y' == $res['deleted'])$res = array();
@@ -112,13 +114,10 @@ abstract class BaseModel {
         return $res;
     }
 
-    /**
-     * @param array $condition
-     * @return bool
-     */
-    public function getCount($condition){
+
+    public function getCount($params,$condition='AND'){
         $conn = $this->getConnect();
-        $sql = $conn->assembleCountSQL($this->tbName,$condition);
+        $sql = $conn->assembleCountSQL($this->tbName,$params,$condition);
         $res = $conn->execute_dql($sql);
         if(isset($res[0])){
             return $res[0]['count'];
@@ -160,6 +159,31 @@ abstract class BaseModel {
         $res['nav'] = $pa->getNav();
 
         return $res;
+    }
+
+
+    /**
+     * @param array $params (array(array(),array()...))
+     * @param array $fields
+     * @return array
+     */
+    public function getAll($params=array(),$fields=array()){
+        $conn = $this->getConnect();
+
+        if(empty($fields)){
+            $fields = $this->tbFields;
+        }
+        $extra = '';
+        if(!empty($params)){
+            $extra = ' WHERE '.$conn->assembleConditions($params,'AND');
+        }
+
+        $sql = $conn->assembleSelectSQL($this->tbName,$fields,$extra);
+
+        $res = $conn->execute_dql($sql);
+
+        return $res;
+
     }
 
 }

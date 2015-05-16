@@ -20,7 +20,7 @@ class indexAction extends BaseAction{
         }else if('footer' == $case){
             $this->render('index/index_footer.php');
         }else{
-            $this->render('index/index.php');
+            $this->render('index/index_index.php');
         }
     }
 }

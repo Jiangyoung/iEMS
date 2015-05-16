@@ -81,13 +81,16 @@ class User extends BaseModel{
         $text = '';
         switch($type){
             case 1:
-                $text = '普通管理员';
+                $text = '实验室管理员';
                 break;
             case 2:
                 $text = '维护人员';
                 break;
             case 3:
                 $text = '租借人员';
+                break;
+            case 5:
+                $text = '普通新添';
                 break;
             default:
                 $text = '普通新添';
