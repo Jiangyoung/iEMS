@@ -16,6 +16,9 @@ use Index\Model\User;
 class listAction extends BaseAction{
     use Traits4listAction;
 
+    function init(){
+        $this->setRenderValues('actionName','实验室管理');
+    }
     function getTplForList(){
         return 'index/place_list.php';
     }

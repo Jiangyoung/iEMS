@@ -53,6 +53,34 @@ class Http{
 		return $output;
 	}
 
+    static function http_get($url) {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 500);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        $res = curl_exec($curl);
+        curl_close($curl);
+        return $res;
+    }
+
+    static function http_post($url,$data='',$headers=array('Content-type'=>'text/xml')){
+        $ch = curl_init ();
+
+        foreach( $headers as $n => $v ) {
+            $headerArr[] = $n .':' . $v;
+        }
+        curl_setopt ( $ch, CURLOPT_URL, $url );
+        curl_setopt ( $ch, CURLOPT_POST, 1 );
+        curl_setopt ( $ch, CURLOPT_HEADER, 0 );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt ($ch, CURLOPT_HTTPHEADER , $headerArr );
+        curl_setopt ( $ch, CURLOPT_POSTFIELDS, $data );
+        $res = curl_exec ( $ch );
+        curl_close ( $ch );
+        return $res;
+    }
 
 
 

@@ -55,7 +55,7 @@ class DbMysqli{
      */
     function execute_dql($sql,$order=null,$limit=null)
     {
-        var_dump($sql);
+        //var_dump($sql);
         if(is_array($order)){
             $sql_order = '';
             $flag = 1;

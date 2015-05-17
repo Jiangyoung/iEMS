@@ -9,6 +9,7 @@ return array(
 'User'		=>			array(
 	'login',
 	'add',
+    'info',
 	'list',
 	'delete',
 	'update'
