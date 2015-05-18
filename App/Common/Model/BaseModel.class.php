@@ -138,6 +138,14 @@ abstract class BaseModel {
             return $res;
         }
     }
+
+
+    public function getOne($fields=array(),$order='ASC',$extra=''){
+        $conn = $this->getConnect();
+        $res = $conn->getOne($this->tbName,$fields,$order,$extra);
+        return $res;
+    }
+
     /**
      * @param array $fields
      * @param string $extra

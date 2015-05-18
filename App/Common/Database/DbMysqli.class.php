@@ -135,6 +135,23 @@ class DbMysqli{
         return $this->conn->insert_id;
     }
 
+    public function getOne($tbName,$fields=array(),$order='ASC',$extra=''){
+        $sql = 'SELECT %s FROM %s %s';
+        $sqlFields = $this->assembleFields($fields);
+        $sqlTable = $this->tbPrefix.$tbName;
+        $sqlExtra = " ORDER BY `id` {$order} LIMIT 1 ";
+        if(!empty($extra)){
+            $sqlExtra = $extra.$sqlExtra;
+        }
+        $sql = sprintf($sql,$sqlFields,$sqlTable,$sqlExtra);
+        $res = $this->conn->query($sql);
+        if(isset($res[0])){
+            return $res[0];
+        }else{
+            return false;
+        }
+    }
+
     public function getList($tbName,$fields = array(),$where='1=1',$start=10,$offset=0){
         $sql = "SELECT %s FROM %s WHERE %s %s ";
         $sqlFields = $this->assembleFields($fields);
