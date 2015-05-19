@@ -23,5 +23,5 @@ CREATE TABLE IF NOT EXISTS `iems_p_e`(
 
 class P_e extends BaseModel{
     protected $tbName = 'p_e';
-    protected $tbFields = array('id','e_id','p_id','create_time','remark');
+    protected $tbFields = array('id','e_id','p_id','create_time','remark','deleted');
 }

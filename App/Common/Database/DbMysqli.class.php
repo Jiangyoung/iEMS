@@ -152,8 +152,8 @@ class DbMysqli{
         }
     }
 
-    public function getList($tbName,$fields = array(),$where='1=1',$start=10,$offset=0){
-        $sql = "SELECT %s FROM %s WHERE %s %s ";
+    public function getList($tbName,$fields = array(),$extra=' WHERE 1=1 ',$start=0,$offset=0){
+        $sql = "SELECT %s FROM %s %s %s ";
         $sqlFields = $this->assembleFields($fields);
         $sqlTable = $this->tbPrefix.$tbName;
         if(0 != intval($offset)){
@@ -163,7 +163,7 @@ class DbMysqli{
         }else{
             $sqlExtra = '';
         }
-        $sql = sprintf($sql,$sqlFields,$sqlTable,$where,$sqlExtra);
+        $sql = sprintf($sql,$sqlFields,$sqlTable,$extra,$sqlExtra);
         $res = $this->execute_dql($sql);
         return $res;
     }
@@ -183,11 +183,16 @@ class DbMysqli{
         return $res;
     }
 
-    public function assembleConditions($params,$condition='AND'){
+    /**
+     * @param $params
+     * @param string $operator
+     * @return string
+     */
+    public function assembleConditions($params,$operator='AND'){
         $res = '';
         $flag = 1;
         foreach($params as $v){
-            if(1 != $flag++)$res .= " {$condition} ";
+            if(1 != $flag++)$res .= " {$operator} ";
                 $res .= " `{$v['field']}` {$v['sign']} '{$v['value']}'";
             }
         return $res;
@@ -223,16 +228,16 @@ class DbMysqli{
     /**
      * @param $tbName
      * @param array $params
-     * @param string $condition
+     * @param string $operator
      * @return string
      */
-    public function assembleCountSQL($tbName,$params=array(),$condition='AND'){
+    public function assembleCountSQL($tbName,$params=array(),$operator='AND'){
         $sql = 'SELECT COUNT(`id`) AS count FROM `%s` %s';
-        if(empty($condition)){
+        if(empty($operator)){
             $sql = sprintf($sql,$this->tbPrefix.$tbName,'');
         }else{
             $res = ' WHERE ';
-            $res .= $this->assembleConditions($params,$condition);
+            $res .= $this->assembleConditions($params,$operator);
             $sql = sprintf($sql,$this->tbPrefix.$tbName,$res);
         }
         return $sql;

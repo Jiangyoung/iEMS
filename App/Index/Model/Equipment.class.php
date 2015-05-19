@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `iems_equipment`(
  */
 class Equipment extends BaseModel{
     protected $tbName = 'equipment';
-    protected $tbFields = array('id','name','model','create_time','state','type','photo_path','description','remark');
+    protected $tbFields = array('id','name','model','create_time','state','type','photo_path','description','remark','deleted');
 
     function getTypes(){
         return array(0,1,2,3,4);

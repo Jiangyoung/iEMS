@@ -28,7 +28,10 @@
                 ?>
             </td>
             <td><?php echo $v['remark']; ?></td>
-            <td><a href="#">修改</a></td>
+            <td>
+                <a href="#">修改</a>
+                <button data="<?php echo $v['id']; ?>" class="btn-delete btn btn-default">删除实验室</button>
+            </td>
         </tr>
     <?php } ?>
     </tbody>
@@ -51,6 +54,18 @@
             'speedIn'		:	300,
             'speedOut'		:	200,
             'overlayShow'	:	false
+        });
+        $("button.btn-delete").click(function(){
+            var id = $(this).attr("data");
+            var _token = "<?php echo $_token; ?>";
+            var url = "index.php?c=place&a=delete";
+            var post_data = {"id":id,"_token":_token};
+            $.post(url,post_data,function(data,status){
+                if("success" == status){
+                    confirm(data.msg);
+                    location.reload();
+                }
+            },"json");
         });
     });
 </script>

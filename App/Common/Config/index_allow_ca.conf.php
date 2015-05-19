@@ -25,7 +25,8 @@ return array(
     'add',
     'list',
     'delete',
-    'update'
+    'update',
+    'getAllPlaceOption'
 ),
 'Maintain'		=>			array(
 	'login',

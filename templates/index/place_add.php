@@ -66,7 +66,7 @@
 <script type="text/javascript">
 
     $(function() {
-        $(".chosen-select").chosen({max_selected_options: 2});
+        $(".chosen-select").chosen({max_selected_options: 3});
         var clearErrMsg = function(){
             $("#errMsg").text("");
         };

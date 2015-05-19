@@ -23,14 +23,14 @@
             <li><a href="index.php?c=user&a=list" target="container">用户管理</a></li>
         </ul>
         <ul class="nav nav-sidebar">
-            <li class="active nav-tag">实验室管理 <span class="sr-only">(current)</span></li>
-            <li><a href="index.php?c=place&a=add" target="container">添加实验室</a></li>
-            <li><a href="index.php?c=place&a=list" target="container">实验室管理</a></li>
-        </ul>
-        <ul class="nav nav-sidebar">
             <li class="active nav-tag">设备管理 <span class="sr-only">(current)</span></li>
             <li><a href="index.php?c=equipment&a=add" target="container">添加设备</a></li>
             <li><a href="index.php?c=equipment&a=list" target="container">设备管理</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+            <li class="active nav-tag">实验室管理 <span class="sr-only">(current)</span></li>
+            <li><a href="index.php?c=place&a=add" target="container">添加实验室</a></li>
+            <li><a href="index.php?c=place&a=list" target="container">实验室管理</a></li>
         </ul>
         <ul class="nav nav-sidebar">
             <li class="active nav-tag">设备借还管理 <span class="sr-only">(current)</span></li>

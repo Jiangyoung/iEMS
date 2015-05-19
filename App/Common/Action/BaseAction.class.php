@@ -57,6 +57,14 @@ abstract class BaseAction{
     protected function init(){
 
     }
+    function responseMsg($errno,$msg){
+        header("Content-Type:text/html;charset=utf-8");
+        $msgArr = array('errno'=>$errno,'msg'=>$msg);
+        echo json_encode($msgArr,JSON_UNESCAPED_UNICODE);
+        exit(0);
+    }
+
+
     abstract public function execute();
 
     /**

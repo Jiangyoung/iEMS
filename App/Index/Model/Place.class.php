@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS `iems_place`(
 
 class Place extends BaseModel{
     protected $tbName = 'place';
-    protected $tbFields = array('id','location','name','admin_ids','remark');
+    protected $tbFields = array('id','location','name','admin_ids','remark','deleted');
 
     function getLocations(){
-        return array(0,1,2,3);
+        return array(0,1,2,3,4,5,6);
     }
 
     function getLocationText($location){
@@ -44,8 +44,17 @@ class Place extends BaseModel{
             case 3:
                 $text = 'E搂';
                 break;
-            default:
+            case 4:
                 $text = 'F搂';
+                break;
+            case 5:
+                $text = 'G搂';
+                break;
+            case 6:
+                $text = 'H搂';
+                break;
+            default:
+                $text = 'M搂';
         }
         return $text;
     }
@@ -57,5 +66,15 @@ class Place extends BaseModel{
             $texts[$k] = $this->getLocationText($k);
         }
         return $texts;
+    }
+
+    function formatList($res){
+        if(isset($res['rows']) && is_array($res['rows'])){
+            foreach($res['rows'] as $k => $v){
+                $res['rows'][$k]['locationText'] = $this->getLocationText($v['location']);
+            }
+            return $res;
+        }
+        return $res;
     }
 }

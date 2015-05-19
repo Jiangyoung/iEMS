@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `iems_user`(
 
 class User extends BaseModel{
     protected $tbName = 'user';
-    protected $tbFields = array('id','username','nickname','password','phone','email','photo_path','type','remark');
+    protected $tbFields = array('id','username','nickname','password','phone','email','photo_path','type','remark','deleted');
 
     /**
      * @param string $username

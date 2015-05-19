@@ -149,23 +149,38 @@ abstract class BaseModel {
     /**
      * @param array $fields
      * @param string $extra
+     * @param bool $isPageNav
      * @return mixed
      */
-    public function getList($fields=array(),$extra=" WHERE `deleted`='n' "){
+    public function getList($fields=array(),$extra=" WHERE `deleted`='n' ",$isPageNav=true){
         $conn = $this->getConnect();
 
         if(empty($fields)){
             $fields = $this->tbFields;
         }
+        if($isPageNav){
+            $sql = $conn->assembleSelectSQL($this->tbName,$fields,$extra);
+            $pa = new Pagination($conn,$sql);
+            $res['rows'] = $pa->getRows();
+            $res['nav'] = $pa->getNav();
+        }else {
+            $res['rows'] = $conn->getList($this->tbName,$this->tbFields);
+            $res['nav'] = '';
+        }
+        $res = $this->formatList($res);
 
-        $sql = $conn->assembleSelectSQL($this->tbName,$fields,$extra);
+        return $res;
+    }
 
-        $pa = new Pagination($conn,$sql);
+    public function delete($conditions,$operator){
+        $conn = $this->getConnect();
+        $extra = $conn->assembleConditions($conditions,$operator);
+        $extra = ' WHERE '.$extra;
+        $res = $this->update(array('deleted'=>'y'),$extra);
+        return $res;
+    }
 
-        $res['rows'] = $pa->getRows();
-
-        $res['nav'] = $pa->getNav();
-
+    function formatList($res){
         return $res;
     }
 

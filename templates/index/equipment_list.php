@@ -24,7 +24,10 @@
             <td><img src="<?php echo $this->getFileUrl($v['photo_path']); ?>" class="thumbnail" style="width:80px;" /></td>
             <td><?php echo $v['description']; ?></td>
             <td><?php echo $v['remark']; ?></td>
-            <td><a href="#">修改</a></td>
+            <td>
+                <a href="#">修改</a>
+                <button data="<?php echo $v['id']; ?>" class="btn-delete btn btn-default">删除设备</button>
+            </td>
         </tr>
     <?php } ?>
     </tbody>
@@ -32,5 +35,21 @@
 
 <?php echo $pageNav; ?>
 <?php $this->load('widget/footer.php'); ?>
+<script>
+    $(function() {
+        $("button.btn-delete").click(function () {
+            var id = $(this).attr("data");
+            var _token = "<?php echo $_token; ?>";
+            var url = "index.php?c=equipment&a=delete";
+            var post_data = {"id": id, "_token": _token};
+            $.post(url, post_data, function (data, status) {
+                if ("success" == status) {
+                    confirm(data.msg);
+                    location.reload();
+                }
+            }, "json");
+        });
+    });
+</script>
 </body>
 </html>

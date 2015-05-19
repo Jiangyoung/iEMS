@@ -24,5 +24,5 @@ CREATE TABLE IF NOT EXISTS `iems_maintain`(
 
 class Maintain extends BaseModel{
     protected $tbName = 'maintain';
-    protected $tbFields = array('id','type','state','e_id','u_id','create_time','remark');
+    protected $tbFields = array('id','type','state','e_id','u_id','create_time','remark','deleted');
 }

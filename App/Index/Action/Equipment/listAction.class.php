@@ -9,6 +9,7 @@ namespace Index\Action\Equipment;
 
 use Common\Action\BaseAction;
 use Common\Action\Traits4listAction;
+use Common\Util\Http;
 use Index\Model\Equipment;
 
 class listAction extends BaseAction{
@@ -18,7 +19,17 @@ class listAction extends BaseAction{
     }
     function getListResForList(){
         $model = $this->getModelForList();
-        $res = $model->getList();
+        $type = Http::getGET('type',0);
+        $state = Http::getGET('state',0);
+        if($type){
+            $extra = " WHERE `type`='{$type}' AND `deleted`='n' ";
+        }else if($state){
+            $extra = " WHERE `state`='{$state}' AND `deleted`='n' ";
+        }else{
+            $extra = " WHERE `deleted`='n' ";
+        }
+
+        $res = $model->getList(array(),$extra);
         return $res;
     }
     function getModelForList(){

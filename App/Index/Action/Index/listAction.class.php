@@ -46,9 +46,9 @@ class listAction extends BaseAction{
             array('field'=>'deleted','sign'=>'=','value'=>'n')
         );
         $count['equipment_type2'] = $equipment->getCount($params);
-        $params[0]['value'] = 4;
-        $count['equipment_type3'] = $equipment->getCount($params);
         $params[0]['value'] = 3;
+        $count['equipment_type3'] = $equipment->getCount($params);
+        $params[0]['value'] = 4;
         $count['equipment_type4'] = $equipment->getCount($params);
 
         $place = new Place();

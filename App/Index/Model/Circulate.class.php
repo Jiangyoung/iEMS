@@ -26,5 +26,5 @@ CREATE TABLE IF NOT EXISTS `iems_circulate`(
 
 class Circulate extends BaseModel{
     protected $tbName = 'circulate';
-    protected $tbFields = array('id','type','state','e_id','u_id','admin_id','create_time','remark');
+    protected $tbFields = array('id','type','state','e_id','u_id','admin_id','create_time','remark','deleted');
 }

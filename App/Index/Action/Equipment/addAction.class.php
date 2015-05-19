@@ -5,6 +5,7 @@ use Common\Action\BaseAction;
 use Common\Action\Traits4addAction;
 use Common\Util\Http;
 use Index\Model\Equipment;
+use Index\Model\Place;
 
 class addAction extends BaseAction{
     use Traits4addAction;
@@ -15,12 +16,16 @@ class addAction extends BaseAction{
     function getPostDataForInsert(){
         $model = $this->getModelForInsert();
         $typeTexts = $model->getTypeTexts();
+        $place = new Place();
+        $places = $place->getList(array()," WHERE `deleted`='n' ",false);
         return array(
             'name'=>'',
             'typeTexts'=>$typeTexts,
             'model'=>'',
             'description'=>'',
-            'remark'=>''
+            'remark'=>'',
+            'amount'=>1,
+            'places'=>$places['rows']
         );
     }
     function getTplForInsert(){
@@ -30,6 +35,12 @@ class addAction extends BaseAction{
         return $params;
     }
     function afterForInsert($insert_id){
+        $insertAmount = intval($_POST['amount']);
+        $model = $this->getModelForInsert();
+        $params = $this->formatForInsert($this->posts);
+        while(--$insertAmount > 0 ){
+            $model->insertOne($params);
+        }
         Http::redirect('index.php?c=equipment&a=list');
     }
 }
