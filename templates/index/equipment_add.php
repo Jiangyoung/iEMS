@@ -57,9 +57,14 @@
             <select name="place" required="true" data-placeholder="选择入库实验室" style="width: 150px;" class="form-control chosen-select">
                 <optgroup label="实验室（位置）">
                     <?php
-                    $optionTpl = '<option value="%s">%s(%s)</option>';
+                    $optionTpl = '<option value="%s" %s>%s(%s)</option>';
                     foreach($postData['places'] as $place){
-                        echo sprintf($optionTpl,$place['id'],$place['name'],$place['locationText']);
+                        if($place['id'] == $postData['place']){
+                            $selected = 'selected';
+                        }else{
+                            $selected = '';
+                        }
+                        echo sprintf($optionTpl,$place['id'],$selected,$place['name'],$place['locationText']);
                     }
                     ?>
 
@@ -67,7 +72,7 @@
 
             </select>&nbsp;&nbsp;<a href="index.php?c=place&a=add">添加实验室</a>
         </div><br/><br/>
-        <img src="" id="photoThumb" class="thumbnail" style="width: 200px; height: 200px;"/>
+        <img src="<?php echo $this->getFileUrl($postData['photo_path']); ?>" id="photoThumb" class="thumbnail" style="width: 200px;"/>
         <input id="file_upload" name="file_upload" type="file" multiple="true">
         <input type="hidden" name="photo_path" value="<?php echo $postData['photo_path']; ?>"/>
         <input type="hidden" name="_token" value="<?php echo $_token; ?>"

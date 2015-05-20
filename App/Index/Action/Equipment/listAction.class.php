@@ -21,14 +21,24 @@ class listAction extends BaseAction{
         $model = $this->getModelForList();
         $type = Http::getGET('type',0);
         $state = Http::getGET('state',0);
+        $p_id = Http::getGET('p_id',0);
+        $extra = '';
         if($type){
-            $extra = " WHERE `type`='{$type}' AND `deleted`='n' ";
-        }else if($state){
-            $extra = " WHERE `state`='{$state}' AND `deleted`='n' ";
-        }else{
-            $extra = " WHERE `deleted`='n' ";
+            $extra .= " `type`='{$type}' ";
         }
-
+        if($state){
+            if(!empty($extra)) $extra .= ' AND ';
+            $extra .= " `state`='{$state}' ";
+        }
+        if($p_id){
+            if(!empty($extra)) $extra .= ' AND ';
+            $extra .= " `p_id`='{$p_id}' ";
+        }
+        if(!empty($extra)){
+            if(!empty($extra)) $extra .= ' AND ';
+        }
+        $extra = ' WHERE '.$extra." `deleted`='n' ";
+        $extra = ' WHERE '.$extra;
         $res = $model->getList(array(),$extra);
         return $res;
     }

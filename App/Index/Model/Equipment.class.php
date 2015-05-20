@@ -7,6 +7,7 @@ use Common\Model\BaseModel;
 DROP TABLE IF EXISTS `iems_equipment`;
 CREATE TABLE IF NOT EXISTS `iems_equipment`(
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `p_id` INT UNSIGNED DEFAULT 0,
   `name` VARCHAR(32) DEFAULT '',
   `model` VARCHAR(64) DEFAULT '',
   `create_time` INT DEFAULT 0,
@@ -20,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `iems_equipment`(
  */
 class Equipment extends BaseModel{
     protected $tbName = 'equipment';
-    protected $tbFields = array('id','name','model','create_time','state','type','photo_path','description','remark','deleted');
+    protected $tbFields = array('id','p_id','name','model','create_time','state','type','photo_path','description','remark','deleted');
 
     function getTypes(){
         return array(0,1,2,3,4);
@@ -58,24 +59,21 @@ class Equipment extends BaseModel{
     }
 
     function getStates(){
-        return array(0,1,2,3,4);
+        return array(0,1,2,3);
     }
     function getStateText($state){
         $text = '';
         switch($state){
             case 0:
-                $text = '在总仓库中';
+                $text = '普通新添';
                 break;
             case 1:
-                $text = '在实验室中';
-                break;
-            case 2:
                 $text = '维护中';
                 break;
-            case 3:
+            case 2:
                 $text = '出借中';
                 break;
-            case 4:
+            case 3:
                 $text = '已报废';
                 break;
             default:

@@ -20,11 +20,14 @@ class addAction extends BaseAction{
         $places = $place->getList(array()," WHERE `deleted`='n' ",false);
         return array(
             'name'=>'',
+
             'typeTexts'=>$typeTexts,
             'model'=>'',
             'description'=>'',
             'remark'=>'',
             'amount'=>1,
+            'place'=>0,
+            'photo_path'=>'',
             'places'=>$places['rows']
         );
     }
@@ -32,6 +35,7 @@ class addAction extends BaseAction{
         return 'index/equipment_add.php';
     }
     function formatForInsert($params){
+        $params['p_id'] = $params['place'];
         return $params;
     }
     function afterForInsert($insert_id){

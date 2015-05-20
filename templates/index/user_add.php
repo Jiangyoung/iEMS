@@ -61,7 +61,7 @@
         </div><br/><br/>
     </div>
     <div class="right">
-        <img src="" id="photoThumb" class="thumbnail" style="width: 200px; height: 200px;"/>
+        <img src="<?php echo $this->getFileUrl($postData['photo_path']); ?>" id="photoThumb" class="thumbnail" style="width: 200px;"/>
         <input id="file_upload" name="file_upload" type="file" multiple="true">
         <input type="hidden" name="photo_path" value="<?php echo $postData['photo_path']; ?>"/>
         <input type="hidden" name="_token" value="<?php echo $_token; ?>"
