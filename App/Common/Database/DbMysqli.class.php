@@ -55,7 +55,7 @@ class DbMysqli{
      */
     function execute_dql($sql,$order=null,$limit=null)
     {
-        //var_dump($sql);
+        var_dump($sql);
         if(is_array($order)){
             $sql_order = '';
             $flag = 1;
@@ -144,7 +144,7 @@ class DbMysqli{
             $sqlExtra = $extra.$sqlExtra;
         }
         $sql = sprintf($sql,$sqlFields,$sqlTable,$sqlExtra);
-        $res = $this->conn->query($sql);
+        $res = $this->execute_dql($sql);
         if(isset($res[0])){
             return $res[0];
         }else{
@@ -153,7 +153,7 @@ class DbMysqli{
     }
 
     public function getList($tbName,$fields = array(),$extra=' WHERE 1=1 ',$start=0,$offset=0){
-        $sql = "SELECT %s FROM %s %s %s ";
+        $sql = "SELECT %s FROM `%s` %s %s ";
         $sqlFields = $this->assembleFields($fields);
         $sqlTable = $this->tbPrefix.$tbName;
         if(0 != intval($offset)){
@@ -233,13 +233,14 @@ class DbMysqli{
      */
     public function assembleCountSQL($tbName,$params=array(),$operator='AND'){
         $sql = 'SELECT COUNT(`id`) AS count FROM `%s` %s';
-        if(empty($operator)){
+        if(empty($params)){
             $sql = sprintf($sql,$this->tbPrefix.$tbName,'');
         }else{
             $res = ' WHERE ';
             $res .= $this->assembleConditions($params,$operator);
             $sql = sprintf($sql,$this->tbPrefix.$tbName,$res);
         }
+        var_dump($sql);
         return $sql;
     }
 

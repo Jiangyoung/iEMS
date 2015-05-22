@@ -11,6 +11,7 @@ use Common\Action\BaseAction;
 use Common\Action\Traits4listAction;
 use Common\Util\Http;
 use Index\Model\Equipment;
+use Index\Model\Place;
 
 class listAction extends BaseAction{
     use Traits4listAction;
@@ -38,7 +39,6 @@ class listAction extends BaseAction{
             if(!empty($extra)) $extra .= ' AND ';
         }
         $extra = ' WHERE '.$extra." `deleted`='n' ";
-        $extra = ' WHERE '.$extra;
         $res = $model->getList(array(),$extra);
         return $res;
     }
@@ -48,9 +48,13 @@ class listAction extends BaseAction{
     }
     function formatListForList($params){
         $model = $this->getModelForList();
+        $placeModel = new Place();
         foreach($params as $k => $row){
             $params[$k]['typeText'] = $model->getTypeText($row['type']);
             $params[$k]['stateText'] = $model->getStateText($row['state']);
+            $extra = " WHERE `id`='{$row['p_id']}' ";
+            $place = $placeModel->getOne(array(),'ASC',$extra);
+            $params[$k]['placeText'] = $placeModel->getLocationText($place['location']);
         }
         return $params;
     }

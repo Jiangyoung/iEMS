@@ -118,6 +118,7 @@ abstract class BaseModel {
     public function getCount($params,$condition='AND'){
         $conn = $this->getConnect();
         $sql = $conn->assembleCountSQL($this->tbName,$params,$condition);
+        var_dump($sql);
         $res = $conn->execute_dql($sql);
         if(isset($res[0])){
             return $res[0]['count'];
@@ -158,13 +159,15 @@ abstract class BaseModel {
         if(empty($fields)){
             $fields = $this->tbFields;
         }
+
         if($isPageNav){
             $sql = $conn->assembleSelectSQL($this->tbName,$fields,$extra);
+
             $pa = new Pagination($conn,$sql);
             $res['rows'] = $pa->getRows();
             $res['nav'] = $pa->getNav();
         }else {
-            $res['rows'] = $conn->getList($this->tbName,$this->tbFields);
+            $res['rows'] = $conn->getList($this->tbName,$fields,$extra);
             $res['nav'] = '';
         }
         $res = $this->formatList($res);
