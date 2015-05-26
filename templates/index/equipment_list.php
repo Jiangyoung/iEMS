@@ -10,7 +10,7 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>#</th><th>设备名称</th><th>类型</th><th>型号</th><th>状态</th><th>图片</th><th>描述</th><th>备注</th><th>操作</th>
+        <th>#</th><th>设备名称</th><th>类型</th><th>型号</th><th>状态</th><th>图片</th><th>描述</th><th>备注</th><th>数量</th><th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -22,11 +22,14 @@
             <td><?php echo $v['model']; ?></td>
             <td><?php echo $v['stateText']; ?></td>
             <td><img src="<?php echo $this->getFileUrl($v['photo_path']); ?>" class="thumbnail" style="width:80px;" /></td>
-            <td><?php echo $v['description']; ?></td>
-            <td><?php echo $v['remark']; ?></td>
             <td>
-                <a href="#">修改</a>
-                <button data="<?php echo $v['id']; ?>" class="btn-delete btn btn-default">删除设备</button>
+                <?php echo $v['description']; ?>
+            </td>
+            <td><?php echo $v['remark']; ?></td>
+            <td><?php echo $v['amount']; ?></td>
+            <td>
+                <p><a href="#" class="btn btn-default">修改</a></p>
+                <p><button data="<?php echo $v['id']; ?>" class="btn-delete btn btn-default">删除设备</button></p>
             </td>
         </tr>
     <?php } ?>

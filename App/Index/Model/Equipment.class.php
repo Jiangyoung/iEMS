@@ -15,13 +15,14 @@ CREATE TABLE IF NOT EXISTS `iems_equipment`(
   `type` TINYINT UNSIGNED DEFAULT 0,
   `photo_path` VARCHAR(128) DEFAULT '' COMMENT '图片路径',
   `description` VARCHAR(128) DEFAULT '',
+  `amount` INT UNSIGNED DEFAULT 1 COMMENT '数量',
   `remark` VARCHAR(128) DEFAULT '',
   `deleted` ENUM('n','y') DEFAULT 'n'
 );
  */
 class Equipment extends BaseModel{
     protected $tbName = 'equipment';
-    protected $tbFields = array('id','p_id','name','model','create_time','state','type','photo_path','description','remark','deleted');
+    protected $tbFields = array('id','p_id','name','model','create_time','state','type','photo_path','description','amount','remark','deleted');
 
     function getTypes(){
         return array(0,1,2,3,4);

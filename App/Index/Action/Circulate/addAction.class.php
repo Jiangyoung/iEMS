@@ -13,16 +13,17 @@ class addAction extends BaseAction{
     function getPostDataForInsert(){
         return array(
             'e_id'=>'',
-            'u_id'=>''
+            'u_id'=>'',
+            'p_id'=>''
         );
     }
     function getTplForInsert(){
-        return 'index/place_add.php';
+        return 'index/circulate_add.php';
     }
     function formatForInsert($params){
         return $params;
     }
     function afterForInsert($insert_id){
-        Http::redirect('index.php?c=place&a=list');
+        Http::redirect('index.php?c=circulate&a=list');
     }
 }

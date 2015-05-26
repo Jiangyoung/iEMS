@@ -8,6 +8,7 @@ return array(
 	),
 'User'		=>			array(
 	'login',
+    'logout',
 	'add',
     'info',
 	'list',

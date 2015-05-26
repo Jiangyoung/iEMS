@@ -15,6 +15,9 @@ use Index\Model\Place;
 
 class listAction extends BaseAction{
     use Traits4listAction;
+    protected function init(){
+        $this->setRenderValues('actionName','设备列表');
+    }
     function getTplForList(){
         return 'index/equipment_list.php';
     }

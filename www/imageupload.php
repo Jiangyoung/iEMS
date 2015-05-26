@@ -11,15 +11,18 @@ function response($errno,$message,$data=''){
 
 if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
     $tempFile = $_FILES['Filedata']['tmp_name'];
-    $targetPath = $_SERVER['DOCUMENT_ROOT']. '/' .dirname($_SERVER['PHP_SELF']). '/' . $targetFolder;
-    $targetName = date('Y-m-d').'/'.mt_rand(10000,20000).time();
 
-    // Validate the file type
+    $photoPath = $targetFolder. '/' . date('Y-m-d');
+    $photoName = mt_rand(10000,20000).time();
+
+        // Validate the file type
     $fileTypes = array('jpg','jpeg','gif','png','bmp'); // File extensions
     $fileParts = pathinfo($_FILES['Filedata']['name']);
-    if (in_array($fileParts['extension'],$fileTypes)) {
-        $targetName .= '.' . $fileParts['extension'];
-        $targetFile = rtrim($targetPath,'/') . '/' . $targetName;
+    $fileType = strtolower($fileParts['extension']);
+    if (in_array($fileType,$fileTypes)) {
+        $photoName .= '.' . $fileType;
+        $targetFile = $photoPath . '/' . $photoName;
+
         $dir = dirname($targetFile);
         if(!is_dir($dir)){
             mkdir($dir,0777,true);
@@ -27,8 +30,14 @@ if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
         move_uploaded_file($tempFile,$targetFile);
 
         //TODO 这里处理图像 缩略图什么的处理
+        require_once "Image.class.php";
+        $thumbFileName = str_replace('.'.$fileType,'t.'.$fileType,$targetFile);
+        $thumbFile = Image::thumb($targetFile,$thumbFileName,$fileType,800,600,true);
+        //删除原图
+        @unlink($targetFile);
 
-        response(0,'Success!','static/images/uploads'.'/'.$targetName);
+
+        response(0,'Success!',$thumbFile);
     } else {
         response(1,'Invalid file type.');
     }

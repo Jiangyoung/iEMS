@@ -170,7 +170,7 @@ abstract class BaseModel {
             $res['rows'] = $conn->getList($this->tbName,$fields,$extra);
             $res['nav'] = '';
         }
-        $res = $this->formatList($res);
+        $res['rows'] = $this->formatList($res['rows']);
 
         return $res;
     }

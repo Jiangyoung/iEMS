@@ -39,12 +39,6 @@ class addAction extends BaseAction{
         return $params;
     }
     function afterForInsert($insert_id){
-        $insertAmount = intval($_POST['amount']);
-        $model = $this->getModelForInsert();
-        $params = $this->formatForInsert($this->posts);
-        while(--$insertAmount > 0 ){
-            $model->insertOne($params);
-        }
         Http::redirect('index.php?c=equipment&a=list');
     }
 }

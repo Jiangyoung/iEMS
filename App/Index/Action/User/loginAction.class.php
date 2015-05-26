@@ -9,7 +9,15 @@ class loginAction extends BaseAction{
     function execute(){
         if($this->isPost){
             $this->verifyVerifyCode(Http::getPOST('_verifyCode'));
-            $this->validatePassword();
+            $username = Http::getPOST('username');
+            $password = md5(Http::getPOST('password'));
+            $user = new User();
+            $res = $user->validatePassword($username,$password);
+            if(!$res){
+                Http::redirect(GAPP_PASSWORD_VERIFY_FAILED);
+            }
+            $_SESSION['_USER_INFO'] = $res;
+
             Http::redirect('index.php');
         }else{
             $this->render('index/user_login.php');

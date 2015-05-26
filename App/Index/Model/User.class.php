@@ -26,7 +26,7 @@ class User extends BaseModel{
     /**
      * @param string $username
      * @param string $password
-     * @return bool
+     * @return array|bool
      */
     function validatePassword($username,$password){
         $conn = $this->getConnect();
@@ -40,9 +40,32 @@ class User extends BaseModel{
 
             $res = $conn->execute_dql($sql);
             if(isset($res[0])){
-                $_SESSION['_USER_INFO'] = $res[0];
-                return true;
+                $res = $this->formatList($res);
+                return $res[0];
             }
+        }else{
+            return false;
+        }
+    }
+
+    function formatList($list){
+        foreach($list as $k => $v){
+            $list[$k]['typeText'] = $this->getTypeText($v['type']);
+        }
+        return $list;
+    }
+
+    /**
+     * @param string $username
+     * @return bool
+     */
+    function getUserByUsername($username){
+        $conn = $this->getConnect();
+        $username = $conn->real_escape_string($username);
+        $sql = $conn->assembleSelectSQL($this->tbName,$this->tbFields," WHERE `username`='{$username}' AND `deleted`='n' LIMIT 1");
+        $res = $conn->execute_dql($sql);
+        if(isset($res[0])){
+            return $res[0];
         }else{
             return false;
         }
@@ -90,7 +113,7 @@ class User extends BaseModel{
                 $text = '租借人员';
                 break;
             case 5:
-                $text = '普通新添';
+                $text = '全局管理员';
                 break;
             default:
                 $text = '普通新添';

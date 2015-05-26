@@ -17,14 +17,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#"><?php echo $_SESSION['_USER_INFO']['username'],' | ',$_SESSION['_USER_INFO']['typeText']; ?></a></li>
+                <li><a href="index.php?c=user&a=logout" target="_parent">注销登录</li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
+
         </div>
     </div>
 </nav>

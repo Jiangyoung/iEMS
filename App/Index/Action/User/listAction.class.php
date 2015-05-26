@@ -18,7 +18,10 @@ class listAction extends BaseAction{
         return $model;
     }
     function getListResForList(){
+
+
         $model = $this->getModelForList();
+
         $type = Http::getGET('type',0);
         $res = array();
         if($type != 0){
@@ -35,10 +38,7 @@ class listAction extends BaseAction{
     }
 
     function formatListForList($list){
-        $model = $this->getModelForList();
-        foreach($list as $k => $v){
-            $list[$k]['typeText'] = $model->getTypeText($v);
-        }
+        //在model里的formatList 已经有一次处理
         return $list;
     }
 
