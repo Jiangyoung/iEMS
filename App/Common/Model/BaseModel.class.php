@@ -118,7 +118,6 @@ abstract class BaseModel {
     public function getCount($params,$condition='AND'){
         $conn = $this->getConnect();
         $sql = $conn->assembleCountSQL($this->tbName,$params,$condition);
-        var_dump($sql);
         $res = $conn->execute_dql($sql);
         if(isset($res[0])){
             return $res[0]['count'];

@@ -14,11 +14,11 @@ class addAction extends BaseAction{
     function getPostDataForInsert(){
         return array(
             'e_id'=>'',
-            'u_id'=>''
+            'remark'=>''
         );
     }
     function getTplForInsert(){
-        return 'index/place_add.php';
+        return 'index/maintain_add.php';
     }
     function formatForInsert($params){
         return $params;

@@ -25,7 +25,7 @@ class Equipment extends BaseModel{
     protected $tbFields = array('id','p_id','name','model','create_time','state','type','photo_path','description','amount','remark','deleted');
 
     function getTypes(){
-        return array(0,1,2,3,4);
+        return array(0,1,2,3,4,5);
     }
     function getTypeText($type){
         $text = '';
@@ -44,6 +44,9 @@ class Equipment extends BaseModel{
                 break;
             case 4:
                 $text = '精密仪器';
+                break;
+            case 5:
+                $text = '小件设备';
                 break;
             default:
                 $text = '未归类设备';

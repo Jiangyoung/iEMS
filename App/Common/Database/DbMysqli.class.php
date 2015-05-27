@@ -55,7 +55,7 @@ class DbMysqli{
      */
     function execute_dql($sql,$order=null,$limit=null)
     {
-        var_dump($sql);
+        //echo $sql,'<hr/>';
         if(is_array($order)){
             $sql_order = '';
             $flag = 1;
@@ -90,7 +90,7 @@ class DbMysqli{
      */
     function execute_dml($sql)
     {
-        //var_dump($sql);
+        //echo $sql,'<hr/>';
         $res = $this->conn->query($sql);
         return $res;
     }
@@ -240,7 +240,6 @@ class DbMysqli{
             $res .= $this->assembleConditions($params,$operator);
             $sql = sprintf($sql,$this->tbPrefix.$tbName,$res);
         }
-        var_dump($sql);
         return $sql;
     }
 

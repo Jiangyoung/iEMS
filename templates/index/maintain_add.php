@@ -19,13 +19,7 @@
     </div>
 
     <div class="form-inline left">
-        <div class="input-group">
-            <div class="input-group-addon">操作选择：</div>
-            <select id="handle" name="handle" required="true" data-placeholder="选择设备" style="width:190px;" class="form-control chosen-select">
-                <option value="circulate" >设备租借</option>
-                <option value="maintain" >设备维护</option>
-            </select>
-        </div><br/><br/>
+        <h3>选择设备：</h3>
 
         <div class="input-group">
             <div class="input-group-addon">选择实验室：</div>
@@ -51,9 +45,8 @@
                 ?>
             </select>
         </div><br/><br/>
-
         <div class="input-group">
-            <div class="input-group-addon">选择租借用户：</div>
+            <div class="input-group-addon">选择维护用户：</div>
             <select name="places[]" required="true" data-placeholder="选择设备" style="width:190px;" class="form-control chosen-select">
                 <?php $p_idTpl = '<option value="%d" %s>%s</option>';
                 foreach($postData['placeTexts'] as $k => $v){
@@ -85,11 +78,6 @@
         };
         setTimeout(clearErrMsg,8000);
 
-        $("#handle").change(function () {
-            var c = $(this).val();
-            var postUrl = "index.php?c="+c+"&a=add";
-            $("form").attr('action',postUrl);
-        });
 
     });
 </script>

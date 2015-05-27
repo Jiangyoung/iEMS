@@ -33,13 +33,9 @@
             <li><a href="index.php?c=place&a=list" target="container">实验室管理</a></li>
         </ul>
         <ul class="nav nav-sidebar">
-            <li class="active nav-tag">设备借还管理 <span class="sr-only">(current)</span></li>
-            <li><a href="index.php?c=circulate&a=add" target="container">添加设备借还</a></li>
+            <li class="active nav-tag">设备借还/维护管理 <span class="sr-only">(current)</span></li>
+            <li><a href="index.php?c=circulate&a=add" target="container">添加设备借还/维护</a></li>
             <li><a href="index.php?c=circulate&a=list" target="container">设备借还管理</a></li>
-        </ul>
-        <ul class="nav nav-sidebar">
-            <li class="active nav-tag">设备维护管理 <span class="sr-only">(current)</span></li>
-            <li><a href="index.php?c=maintain&a=add" target="container">添加设备维护</a></li>
             <li><a href="index.php?c=maintain&a=list" target="container">维护信息统计</a></li>
         </ul>
     </div>

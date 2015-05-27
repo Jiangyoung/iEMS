@@ -12,9 +12,12 @@ class addAction extends BaseAction{
     }
     function getPostDataForInsert(){
         return array(
-            'e_id'=>'',
-            'u_id'=>'',
-            'p_id'=>''
+            'placeText'=>'gx',
+            'remark'=>'',
+            'user_remark'=>'',
+            'nickname'=>'',
+            'email'=>'',
+            'phone'=>''
         );
     }
     function getTplForInsert(){
