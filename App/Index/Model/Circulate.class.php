@@ -45,5 +45,12 @@ class Circulate extends BaseModel{
         }
         return $text;
     }
+    function formatList($list){
+        foreach($list as $k => $v){
+            $list[$k]['typeText'] = $this->getTypeText($v['type']);
+            $list[$k]['create_timeText'] = date('Y-m-d H:i:s',$v['create_time']);
+        }
+        return $list;
+    }
 
 }

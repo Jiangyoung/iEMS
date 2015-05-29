@@ -135,8 +135,8 @@ abstract class BaseModel {
             }else{
                 die("Wrong Params!");
             }
-            return $res;
         }
+        return $res;
     }
 
 
@@ -182,8 +182,8 @@ abstract class BaseModel {
         return $res;
     }
 
-    function formatList($res){
-        return $res;
+    function formatList($list){
+        return $list;
     }
 
 

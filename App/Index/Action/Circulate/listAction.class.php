@@ -32,6 +32,8 @@ class listAction extends BaseAction{
         return $res;
     }
     function formatListForList($params){
+        $params['adminText'] = '';
+        $params['equipmentText'] = '';
         return $params;
     }
 }

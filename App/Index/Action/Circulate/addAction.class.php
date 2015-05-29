@@ -3,11 +3,16 @@ namespace Index\Action\Circulate;
 
 use Common\Action\BaseAction;
 use Common\Action\Traits4addAction;
+use Common\Util\Http;
+use Index\Model\Circulate;
 
 class addAction extends BaseAction{
     use Traits4addAction;
+    protected function init(){
+        $this->setRenderValues('actionName','添加设备借还/维护');
+    }
     function getModelForInsert(){
-        $model = new Place();
+        $model = new Circulate();
         return $model;
     }
     function getPostDataForInsert(){
