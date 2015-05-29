@@ -90,7 +90,7 @@ AAA;
                 $flag++;
                 continue;
             }
-            $a .= sprintf($aTpl,$this->getLink($$flag),'&nbsp;'.($flag).'&nbsp;');
+            $a .= sprintf($aTpl,$this->getLink($flag),'&nbsp;'.($flag).'&nbsp;');
             $flag++;
         }
 
