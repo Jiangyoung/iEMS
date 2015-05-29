@@ -29,8 +29,8 @@
             </td>
             <td><?php echo $v['remark']; ?></td>
             <td>
-                <a href="#">修改</a>
-                <button data="<?php echo $v['id']; ?>" class="btn-delete btn btn-default">删除实验室</button>
+                <p></p><a href="#" class="btn btn-default">修改</a></p>
+                <p><button data="<?php echo $v['id']; ?>" class="btn-delete btn btn-default">删除</button></p>
             </td>
         </tr>
     <?php } ?>

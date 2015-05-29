@@ -55,7 +55,7 @@
         <div class="input-group">
             <div required="true" class="input-group-addon">选择实验室：</div>
             <select name="place" required="true" data-placeholder="选择入库实验室" style="width: 150px;" class="form-control chosen-select">
-                <optgroup label="实验室（位置）">
+                <optgroup label="实验室名称（位置）">
                     <?php
                     $optionTpl = '<option value="%s" %s>%s(%s)</option>';
                     foreach($postData['places'] as $place){

@@ -9,6 +9,10 @@ use Index\Model\Place;
 
 class addAction extends BaseAction{
     use Traits4addAction;
+    protected function init(){
+        $this->setRenderValues('actionName','添加设备');
+    }
+
     function getModelForInsert(){
         $model = new Equipment();
         return $model;
@@ -20,7 +24,7 @@ class addAction extends BaseAction{
         $places = $place->getList(array()," WHERE `deleted`='n' ",false);
         return array(
             'name'=>'',
-
+            'locationText'=>'',
             'typeTexts'=>$typeTexts,
             'model'=>'',
             'description'=>'',

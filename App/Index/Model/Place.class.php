@@ -68,13 +68,13 @@ class Place extends BaseModel{
         return $texts;
     }
 
-    function formatList($res){
-        if(isset($res['rows']) && is_array($res['rows'])){
-            foreach($res['rows'] as $k => $v){
-                $res['rows'][$k]['locationText'] = $this->getLocationText($v['location']);
+    function formatList($list){
+        if(is_array($list)){
+            foreach($list as $k => $v){
+                $list[$k]['locationText'] = $this->getLocationText($v['location']);
             }
-            return $res;
+            return $list;
         }
-        return $res;
+        return $list;
     }
 }

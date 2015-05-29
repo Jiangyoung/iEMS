@@ -29,7 +29,7 @@ if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
         }
         move_uploaded_file($tempFile,$targetFile);
 
-        //TODO 这里处理图像 缩略图什么的处理
+        //这里处理图像 缩略图什么的处理
         require_once "Image.class.php";
         $thumbFileName = str_replace('.'.$fileType,'t.'.$fileType,$targetFile);
         $thumbFile = Image::thumb($targetFile,$thumbFileName,$fileType,800,600,true);

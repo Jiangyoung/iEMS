@@ -29,7 +29,7 @@
             <td><?php echo $v['amount']; ?></td>
             <td>
                 <p><a href="#" class="btn btn-default">修改</a></p>
-                <p><button data="<?php echo $v['id']; ?>" class="btn-delete btn btn-default">删除设备</button></p>
+                <p><button data="<?php echo $v['id']; ?>" class="btn-delete btn btn-default">删除</button></p>
             </td>
         </tr>
     <?php } ?>
