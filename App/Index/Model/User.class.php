@@ -17,6 +17,9 @@ CREATE TABLE IF NOT EXISTS `iems_user`(
   `remark` VARCHAR(128) DEFAULT '' COMMENT '备注',
   `deleted` ENUM('n','y') DEFAULT 'n'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+UPDATE user SET Password = PASSWORD('root') WHERE user = 'root';
+FLUSH PRIVILEGES;
+insert into iems_user set username='admin',nickname='admin',password='21232f297a57a5a743894a0e4a801fc3',type=5;
  */
 
 class User extends BaseModel{
